@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Shopphone</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+    integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script>
+    // chuyển đổi giỏ hàng
+    $('.js-toggle-cart, .cart__overlay').on('click', function () {
+      $('.cart').toggleClass('is-hidden');
+    });
+    // thay đổi màu thanh điều hướng khi cuộn
+    $(window).on('scroll', function () {
+      if (this.scrollY > 100) {
+        $('nav').addClass('black');
+      } else {
+        $('nav').removeClass('black');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "lxvsa1wt6r3w1w6",
+    "title": "title",
+    "price": "price",
+    "discountPercentage": "discountPercentage",
+    "stock": "stock",
+    "rating": "rating",
+    "images": "images",
+    "thumbnail": "thumbnail",
+    "description": "description",
+    "brand": "brand",
+    "category": "category"
+  },
+  {
+    "id": "lxvtxccwz6wufhb",
+    "title": "title",
+    "price": "price",
+    "discountPercentage": "discountPercentage",
+    "stock": "stock",
+    "rating": "rating",
+    "images": "images",
+    "thumbnail": "thumbnail",
+    "description": "description",
+    "brand": "brand",
+    "category": "category"
+  }
+]

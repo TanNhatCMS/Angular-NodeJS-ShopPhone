@@ -1,0 +1,3 @@
+[build]
+command = "pnpm run start:staging"
+publish = "public"

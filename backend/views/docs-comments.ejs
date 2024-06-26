@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- header -->
+<%- include('./partials/docs-head') %>
+
+<body>
+  <!-- header -->
+  <%- include('./partials/header') %>
+
+  <!-- side-nav -->
+  <%- include('./partials/docs-side-nav') %>
+
+  <section>
+    <div class="content">
+      <h1 class="docs-title">
+        <img src="/public/img/icons/chat.svg" class="icon" alt="svg icon" /> Comments - Docs
+      </h1>
+      <p class="display-para">
+        The <strong>comments</strong> endpoint provides a dataset of sample user comments, including details like usernames, post IDs, and comment texts, ideal for testing and prototyping social interactions and feedback features in web applications.
+      </p>
+
+      <div class="resource" id="comments-all">
+        <a href="#comments-all" class="res-title">Get all comments</a>
+        <p class="res-desc">
+          By default you will get 30 items, use <a href="#comments-limit_skip">Limit and skip</a> to paginate through all items.
+        </p>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments')
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "comments": [
+              {
+                "id": 1,
+                "body": "This is some awesome thinking!",
+                "postId": 242,
+                "likes": 3,
+                "user": {
+                  "id": 105,
+                  "username": "emmac",
+                  "fullName": "Emma Wilson"
+                }
+              },
+              {
+                "id": 2,
+                "body": "What terrific math skills you're showing!",
+                "postId": 46,
+                "likes": 4,
+                "user": {
+                  "id": 183,
+                  "username": "cameronp",
+                  "fullName": "Cameron Perez"
+                }
+              },
+              {...},
+              {...}
+              // 30 items
+            ],
+            "total": 340,
+            "skip": 0,
+            "limit": 30
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-single">
+        <a href="#comments-single" class="res-title">Get a single comment</a>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments/1')
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "id": 1,
+            "body": "This is some awesome thinking!",
+            "postId": 242,
+            "likes": 3,
+            "user": {
+              "id": 105,
+              "username": "emmac",
+              "fullName": "Emma Wilson"
+            }
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-limit_skip">
+        <a href="#comments-limit_skip" class="res-title">Limit and skip comments</a>
+        <p class="res-tip">
+          You can pass `limit` and `skip` params to limit and skip the
+          results for pagination, and use `limit=0` to get all items.
+        </p>
+        <p class="res-tip">
+          You can pass `select` as query params with comma-separated values
+          to select specific data
+        </p>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments?limit=10&skip=10&select=body,postId')
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "comments": [
+              {
+                "id": 11,
+                "body": "It was a pleasure to grade this!",
+                "postId": 156,
+                "likes": 8,
+                "user": {
+                  "id": 162,
+                  "username": "mateob",
+                  "fullName": "Mateo Bennett"
+                }
+              },
+              {...},
+              {...},
+              {...}
+              // 10 items
+            ],
+            "total": 340,
+            "skip": 10,
+            "limit": 10
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-post">
+        <a href="#comments-post" class="res-title">Get all comments by post id</a>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments/post/6')
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "comments": [
+              {
+                "id": 15,
+                "body": "You've shown so much growth!",
+                "postId": 6, // post id is 6
+                "likes": 2,
+                "user": {
+                  "id": 17,
+                  "username": "evelyns",
+                  "fullName": "Evelyn Sanchez"
+                }
+              }
+            ],
+            "total": 1,
+            "skip": 0,
+            "limit": 1
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-add">
+        <a href="#comments-add" class="res-title">Add a new comment</a>
+        <p class="res-tip">
+          Adding a new comment will not add it into the server.
+          <br />
+          It will simulate a POST request and will return the new created comment with a new id
+        </p>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              body: 'This makes all sense to me!',
+              postId: 3,
+              userId: 5,
+            })
+          })
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "id": 341,
+            "body": "This makes all sense to me!",
+            "postId": 3,
+            "user": {
+              "id": 5,
+              "username": "emmaj",
+              fullName: "Emma Miller"
+            }
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-update">
+        <a href="#comments-update" class="res-title">Update a comment</a>
+        <p class="res-tip">
+          Updating a comment will not update it into the server.
+          <br />
+          It will simulate a PUT/PATCH request and will return updated comment with modified data
+        </p>
+        <pre><code class="language-js">
+          /* updating body of comment with id 1 */
+          fetch('https://dummyjson.com/comments/1', {
+            method: 'PUT', /* or PATCH */
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              body: 'I think I should shift to the moon',
+            })
+          })
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "id": 1,
+            "body": "I think I should shift to the moon", // only body was updated
+            "postId": 242,
+            "likes": 3,
+            "user": {
+              "id": 105,
+              "username": "emmac",
+              "fullName": "Emma Wilson"
+            }
+          }
+        </code></pre>
+      </div>
+
+      <div class="resource" id="comments-delete">
+        <a href="#comments-delete" class="res-title">Delete a comment</a>
+        <p class="res-tip">
+          Deleting a comment will not delete it into the server.
+          <br />
+          It will simulate a DELETE request and will return deleted comment with `isDeleted` & `deletedOn` keys
+        </p>
+        <pre><code class="language-js">
+          fetch('https://dummyjson.com/comments/1', {
+            method: 'DELETE',
+          })
+          .then(res => res.json())
+          .then(console.log);
+        </code></pre>
+
+        <button class="show-output btn">Show Output</button>
+
+        <pre class="output"><code class="language-json">
+          {
+            "id": 1,
+            "body": "This is some awesome thinking!",
+            "postId": 242,
+            "likes": 3,
+            "user": {
+              "id": 105,
+              "username": "emmac",
+              "fullName": "Emma Wilson"
+            },
+            "isDeleted": true,
+            "deletedOn": /* ISOTime */
+          }
+        </code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <%- include('./partials/docs-footer') %>
+
+  <script>
+    selectNavItem(window.location.hash || '#comments-all');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "shopphone",
+  "version": "0.1.0",
+  "author": "Nguyễn Tuấn Kiệt <mrkiet.dev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "pm2": "pm2",
+    "i:be": "cd backend && pnpm install",
+    "i:fe": "cd frontend && pnpm install",
+    "i:all": "pnpm run i:be && pnpm run i:fe",
+    "postinstall": "pnpm run i:all",
+    "start:be": "cd backend && pnpm start",
+    "dev:be": "cd backend && pnpm run dev",
+    "start:fe": "cd frontend && pnpm start",
+    "build:fe": "cd frontend && pnpm run build",
+    "test:fe": "cd frontend && pnpm test",
+    "dev": "concurrently \"pnpm run dev:be\" \"pnpm run start:fe\"",
+    "pm2:prod": "pm2 start ecosystem.config.js --env production",
+    "pm2:dev": "pm2 start ecosystem.config.js --env development",
+    "stop": "pm2 stop ecosystem.config.js",
+      "delete": "pm2 delete ecosystem.config.js",
+    "monitor": "pm2 monit",
+    "reload-env": "pm2 reload --update-env ecosystem.config.js"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "pm2": "^5.4.1",
+    "serve": "^14.2.3"
+  },
+  "engines": {
+    "node": "20.x",
+    "pnpm": "9.x"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

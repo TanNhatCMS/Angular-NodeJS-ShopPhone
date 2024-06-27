@@ -15,9 +15,9 @@ const errorMiddleware = require('./src/middleware/error');
 const authUser = require('./src/middleware/auth');
 const routes = require('./src/routes');
 const { validateEnvVar, loadDataInMemory } = require('./src/utils/util');
-
+const connectDB = require('./src/db');
 // use database to store logs and custom responses
-//require('./src/db/mongoose');
+connectDB();
 
 // validate if we have all the env variables setup.
 validateEnvVar();

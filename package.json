@@ -45,7 +45,6 @@
     "pm2": "^5.4.1"
   },
   "engines": {
-    "node": "20.x",
     "pnpm": "9.x"
   },
   "dependencies": {

@@ -125,8 +125,8 @@ importers:
         specifier: ~7.5.0
         version: 7.5.0
       eslint-config-airbnb-base:
-        specifier: ^14.2.1
-        version: 14.2.1(eslint-plugin-import@2.29.1(eslint@7.5.0))(eslint@7.5.0)
+        specifier: ^15.0.0
+        version: 15.0.0(eslint-plugin-import@2.29.1(eslint@7.5.0))(eslint@7.5.0)
       eslint-config-prettier:
         specifier: ^6.15.0
         version: 6.15.0(eslint@7.5.0)
@@ -152,8 +152,8 @@ importers:
         specifier: ^18.0.5
         version: 18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))
       '@angular/cdk':
-        specifier: 18.0.4
-        version: 18.0.4(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
+        specifier: 18.0.5
+        version: 18.0.5(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
       '@angular/common':
         specifier: ^18.0.5
         version: 18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
@@ -167,8 +167,8 @@ importers:
         specifier: ^18.0.5
         version: 18.0.5(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(@angular/platform-browser@18.0.5(@angular/animations@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7)))(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7)))(rxjs@7.8.1)
       '@angular/material':
-        specifier: 18.0.4
-        version: 18.0.4(5citno2ryh4jkun6pvaxad7mty)
+        specifier: 18.0.5
+        version: 18.0.5(agpkcrfn277cjsnxdorg2ijmgy)
       '@angular/platform-browser':
         specifier: ^18.0.5
         version: 18.0.5(@angular/animations@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7)))(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))
@@ -423,8 +423,8 @@ packages:
       tailwindcss:
         optional: true
 
-  '@angular/cdk@18.0.4':
-    resolution: {integrity: sha512-OCG1EGv/nyZYGcSu7y6IAuarC5gZcZYhhvEQsgMUDrf1TGRSa+0dBN5W2HxRWKs6NsGgDjW1VcK+AC85PYLXPA==}
+  '@angular/cdk@18.0.5':
+    resolution: {integrity: sha512-Yf94Udxip8xjVIJlxwh80h6fUpX5JFcBv3FCFer7DU/YzWdoTL+BTIYF8og+NjlDRt1nSbTxdyU2LVI0rTVkpg==}
     peerDependencies:
       '@angular/common': ^18.0.0 || ^19.0.0
       '@angular/core': ^18.0.0 || ^19.0.0
@@ -475,11 +475,11 @@ packages:
       '@angular/platform-browser': 18.0.5
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/material@18.0.4':
-    resolution: {integrity: sha512-ES4peq3+tMEPKe9RgdQ3pp3CcjM0Cr+vi4f+0ruH2wu1NTBk522/1/ABHncg3A/eCurKS96JJdihqOAjMek4Ow==}
+  '@angular/material@18.0.5':
+    resolution: {integrity: sha512-8xCyEs9yT7tp7vSBcVww+Adt2ue0oFG2yfISYRNweg0RXC9qk64DDhcIyYhn92xLSnFH1q6mPcjrNw8RmhA10A==}
     peerDependencies:
       '@angular/animations': ^18.0.0 || ^19.0.0
-      '@angular/cdk': 18.0.4
+      '@angular/cdk': 18.0.5
       '@angular/common': ^18.0.0 || ^19.0.0
       '@angular/core': ^18.0.0 || ^19.0.0
       '@angular/forms': ^18.0.0 || ^19.0.0
@@ -3497,12 +3497,12 @@ packages:
     engines: {node: '>=6.0'}
     hasBin: true
 
-  eslint-config-airbnb-base@14.2.1:
-    resolution: {integrity: sha512-GOrQyDtVEc1Xy20U7vsB2yAoB4nBlfH5HZJeatRXHleO+OS5Ot+MWij4Dpltw4/DyIkqUfqz1epfhVR5XWWQPA==}
-    engines: {node: '>= 6'}
+  eslint-config-airbnb-base@15.0.0:
+    resolution: {integrity: sha512-xaX3z4ZZIcFLvh2oUNvcX5oEofXda7giYmuplVxoOg5A7EXJMrUyqRgR+mhDhPK8LZ4PttFOBvCYDbX3sUoUig==}
+    engines: {node: ^10.12.0 || >=12.0.0}
     peerDependencies:
-      eslint: ^5.16.0 || ^6.8.0 || ^7.2.0
-      eslint-plugin-import: ^2.22.1
+      eslint: ^7.32.0 || ^8.2.0
+      eslint-plugin-import: ^2.25.2
 
   eslint-config-prettier@6.15.0:
     resolution: {integrity: sha512-a1+kOYLR8wMGustcgAjdydMsQ2A/2ipRPwRKUmfYaSxc9ZPcrku080Ctl6zrZzZNs/U82MjSv+qKREkoq3bJaw==}
@@ -7142,7 +7142,7 @@ snapshots:
       - supports-color
       - terser
 
-  '@angular/cdk@18.0.4(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)':
+  '@angular/cdk@18.0.5(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)':
     dependencies:
       '@angular/common': 18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
       '@angular/core': 18.0.5(rxjs@7.8.1)(zone.js@0.14.7)
@@ -7216,10 +7216,10 @@ snapshots:
       rxjs: 7.8.1
       tslib: 2.6.3
 
-  '@angular/material@18.0.4(5citno2ryh4jkun6pvaxad7mty)':
+  '@angular/material@18.0.5(agpkcrfn277cjsnxdorg2ijmgy)':
     dependencies:
       '@angular/animations': 18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))
-      '@angular/cdk': 18.0.4(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
+      '@angular/cdk': 18.0.5(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
       '@angular/common': 18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1)
       '@angular/core': 18.0.5(rxjs@7.8.1)(zone.js@0.14.7)
       '@angular/forms': 18.0.5(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(@angular/platform-browser@18.0.5(@angular/animations@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7)))(@angular/common@18.0.5(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7))(rxjs@7.8.1))(@angular/core@18.0.5(rxjs@7.8.1)(zone.js@0.14.7)))(rxjs@7.8.1)
@@ -11050,13 +11050,14 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-config-airbnb-base@14.2.1(eslint-plugin-import@2.29.1(eslint@7.5.0))(eslint@7.5.0):
+  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.29.1(eslint@7.5.0))(eslint@7.5.0):
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 7.5.0
       eslint-plugin-import: 2.29.1(eslint@7.5.0)
       object.assign: 4.1.5
       object.entries: 1.1.8
+      semver: 6.3.1
 
   eslint-config-prettier@6.15.0(eslint@7.5.0):
     dependencies:

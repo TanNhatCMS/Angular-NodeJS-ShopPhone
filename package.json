@@ -1,6 +1,7 @@
 {
   "name": "shopphone",
   "version": "0.1.0",
+  "type": "module",
   "author": {
     "name": "TanNhatCMS",
     "email": "mrkiet.dev@gmail.com"

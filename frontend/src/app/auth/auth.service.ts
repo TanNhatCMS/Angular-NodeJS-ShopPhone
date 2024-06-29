@@ -62,6 +62,19 @@ export class AuthService implements OnInit {
     });
   }
 
+  login2(form: LoginForm) {
+    this.isLoading = true;
+    const user = this.Users.find(user => user.email === form.email && user.password === form.password);
+    if (user) {
+      this.isAuthenticated = true;
+      this.router.navigate(['']);
+    } else {
+      alert('Login not successful');
+      this.isAuthenticated = false;
+    }
+    this.isLoading = false;
+  }
+
   register(form: RegisterForm) {
     if (form.password !== form.comfirm_password) {
       alert('Passwords do not match');
@@ -82,19 +95,19 @@ export class AuthService implements OnInit {
       next: (response: any) => {
         //this.isAuthenticated = true;
         // Save token and refreshToken if needed
-        alert('Register '+response.user.email + ' successfully');
+        alert('Register ' + response.user.email + ' successfully');
         this.router.navigate(['/login']);
         // this.getUserInfo(response.token); // Fetch user info after login
       },
       error: (err) => {
         alert('Register not successful');
-       // this.isAuthenticated = false;
+        // this.isAuthenticated = false;
       },
       complete: () => {
         this.isLoading = false;
       }
     });
-    this.Users.push({ email: form.email, password: form.password });
+    this.Users.push({email: form.email, password: form.password});
     this.router.navigate(['login']);
     this.isAuthenticated = true;
     console.log(this.Users);
@@ -108,7 +121,7 @@ export class AuthService implements OnInit {
       });
 
       this.isLoading = true;
-      this.http.post(this.apiUrl + '/auth/logout', {}, { headers })
+      this.http.post(this.apiUrl + '/auth/logout', {}, {headers})
         .subscribe({
           next: (response: any) => {
             alert('Logout successfully');
@@ -142,7 +155,7 @@ export class AuthService implements OnInit {
         console.log('User info:', response.user);
       },
       error: (err) => {
-        console.log('Failed to fetch user info'+ err.message);
+        console.log('Failed to fetch user info' + err.message);
       }
     });
   }

@@ -41,7 +41,7 @@
     "reload-env": "pm2 reload --update-env ecosystem.config.js"
   },
   "devDependencies": {
-    "concurrently": "^8.0.0",
+    "concurrently": "^8.2.2",
     "pm2": "^5.4.1"
   },
   "engines": {

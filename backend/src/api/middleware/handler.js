@@ -1,9 +1,10 @@
-const {HttpError, apiError} = require('../helpers');
+const {HttpError} = require('../helpers');
+const APIError = require("../utils/error");
 
 handler = {};
 
 handler.errorMiddleware = function (err, req, res, next) {
-    if (err instanceof apiError) {
+    if (err instanceof APIError) {
         const {message, status, errors, data} = err;
         const response = {
             success: false,
@@ -18,16 +19,6 @@ handler.errorMiddleware = function (err, req, res, next) {
             response.stack = err.stack
         }
         return res.status(response.status).json(response);
-    }
-
-    // Xử lý lỗi HTTP (nếu cần thiết)
-    if (err instanceof HttpError) {
-        return res.status(err.statusCode).json({
-            success: false,
-            status: err.statusCode,
-            message: err.message,
-            ...(process.env.NODE_ENV === 'development' ? {stack: err.stack} : {})
-        });
     }
 
     // Xử lý các lỗi khác
@@ -47,7 +38,7 @@ handler.handlerResponse = function ( callback, status = 200, message = '', data 
         data: data,
         ...additionalProps,
     };
-    return res.status(status).json(response);
+    return callback.status(status).json(response);
 }
 
 module.exports = handler;

@@ -16,7 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import {AuthService} from "./auth/auth.service";
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient} from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {GlobalErrorHandler} from "./global-error-handler";
 
@@ -39,11 +39,10 @@ import {GlobalErrorHandler} from "./global-error-handler";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, provideAnimationsAsync(),{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
+  providers: [AuthService, provideHttpClient(), provideAnimationsAsync(),{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
   bootstrap: [AppComponent]
 })
 

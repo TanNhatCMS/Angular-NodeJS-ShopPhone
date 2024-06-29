@@ -13,7 +13,7 @@
   <section>
     <div class="content">
       <h1 class="docs-title">
-        <img src="/public/img/icons/user.svg" class="icon" alt="svg icon" /> Users - Docs
+        <img src="/storage/img/icons/user.svg" class="icon" alt="svg icon" /> Users - Docs
       </h1>
       <p class="display-para">
         The <strong>users</strong> endpoint provides a versatile dataset of sample user information and related data like carts, posts, and todos, making it ideal for testing and prototyping user management functionalities in web applications. </p>
@@ -159,8 +159,8 @@
           fetch('http://dummyjson.com/user/me', {
             method: 'GET',
             headers: {
-              'Authorization': 'Bearer /* YOUR_TOKEN_HERE */', 
-            }, 
+              'Authorization': 'Bearer /* YOUR_TOKEN_HERE */',
+            },
           })
           .then(res => res.json())
           .then(console.log);
@@ -647,9 +647,9 @@
             "maidenName": "Smith",
             "age": 28,
             "gender": "female",
-          
+
             /* other user data */
-          
+
             "isDeleted": true,
             "deletedOn": /* ISOTime */
           }

@@ -5,12 +5,15 @@ const connectDB = async () => {
     try {
         await mongoose.connect(MONGODB_URI, {
             dbName: MONGODB_DB_NAME,
+            keepAlive: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true,
         });
-        console.info('[Service:Database] Connected.');
+        console.info('[Service:Database]✅ Connected database from MongoDB.');
     } catch (err) {
-        console.error('[Service:Database] Err: Failed to Connect.', err.message);
+        console.error(`[Service:Database]❌ Connect database is failed with error which is ${error}`);
         process.exit(1);
     }
 };

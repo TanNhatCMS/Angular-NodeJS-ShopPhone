@@ -18,15 +18,15 @@ UserController.CreateUser = async (req, res) => {
 
         const user = await UserModel.createUser(newUser);
         res.status(201).json({
-            payload: user,
+            status: "success",
             message: `User ${username} created successfully`,
-            status: 201,
+            data: {item:user},
         });
     } catch (error) {
         res.status(500).json({
+            status: "error",
             message: error.message,
-            status: 500,
-            success: false
+            data:{item:{}}
         });
     }
 };
@@ -35,18 +35,16 @@ UserController.CreateUser = async (req, res) => {
 UserController.GetAllUsers = async (req, res) => {
     try {
         const users = await UserModel.getAllUsers();
-
         res.status(200).json({
-            payload: verifyOutput(users),
-            message: 'Users retrieved successfully',
-            status: 200,
-            success: true
+            status: "success",
+            message: '',
+            data: {items:users},
         });
     } catch (error) {
         res.status(500).json({
+            status: "error",
             message: error.message,
-            status: 500,
-            success: false
+            data:{items:[]}
         });
     }
 };
@@ -59,25 +57,23 @@ UserController.GetUserByID = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
+                status: "error",
                 message: `User with ID ${id} not found`,
-                status: 404,
-                success: false
             });
         }
 
         res.status(200).json(
             {
-                payload: verifyOutput(user),
+                status: "success",
                 message: `User with ID ${id} retrieved successfully`,
-                status: 200,
-                success: true
+                data:{item:user}
             }
         );
     } catch (error) {
         res.status(500).json({
+            status: "error",
             message: error.message,
-            status: 500,
-            success: false
+            data:{item:{}}
         });
     }
 };
@@ -90,22 +86,21 @@ UserController.GetUserByUsername = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
+                status: "error",
                 message: `User with username ${username} not found`,
-                status: 404,
-                success: false
+                data:{item:{}}
             });
         }
         res.status(200).json({
-            payload: verifyOutput(user),
+            status: "success",
             message: `User with username ${username} retrieved successfully`,
-            status: 200,
-            success: true
+            data:{item:user},
         });
     } catch (error) {
         res.status(500).json({
+            status: "error",
             message: error.message,
-            status: 500,
-            success: false
+            data:{item:{}}
         });
     }
 };
@@ -115,20 +110,17 @@ UserController.UpdateUser = async (req, res) => {
     const id = req.params.id;
     try {
         const updatedUser = await UserModel.updateUser(id, req.body);
-
         if (!updatedUser) {
             return res.status(404).json({
+                status: "error",
                 message: `User with ID ${id} not found`,
-                status: 404,
-                success: false
+                data:{item:{}}
             });
         }
-
         res.status(200).json({
-            payload: verifyOutput(updatedUser),
+            status: "success",
             message: `User with ID ${id} updated successfully`,
-            status: 200,
-            success: true
+            data:{item: updatedUser},
         });
     } catch (error) {
         res.status(500).json({
@@ -144,7 +136,6 @@ UserController.DeleteUser = async (req, res) => {
     const id = req.params.id;
     try {
         const deletedUser = await UserModel.deleteUser(id);
-
         if (!deletedUser) {
             return res.status(404).json({
                 message: `User with ID ${id} not found`,

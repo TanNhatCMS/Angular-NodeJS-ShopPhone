@@ -4,6 +4,7 @@ const {
     dataInMemory: frozenData,
     getUserPayload,
     isValidNumberInRange,
+    setHeader,
     findUserWithUsernameAndId,
 } = require('../utils/util');
 const {thirtyDaysInMints: maxTokenExpireTime} = require('../constants');
@@ -14,6 +15,7 @@ const db = new MongoDB();
 
 // login user by username and password
 controller.loginByUsernamePassword = async (req, res, next) => {
+    setHeader(res);
     const {username, password, expiresInMins = 60} = req.body;
     if (!isValidNumberInRange(expiresInMins, 1, maxTokenExpireTime)) {
         throw new APIError(`maximum token expire time can be ${maxTokenExpireTime} minutes`);

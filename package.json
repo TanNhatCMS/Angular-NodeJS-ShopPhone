@@ -27,7 +27,6 @@
     "i:be": "cd backend && pnpm install",
     "i:fe": "cd frontend && pnpm install",
     "i:all": "pnpm run i:be && pnpm run i:fe",
-    "postinstall": "pnpm run i:all",
     "start:be": "cd backend && pnpm start",
     "dev:be": "cd backend && pnpm run dev",
     "start:fe": "cd frontend && pnpm start",

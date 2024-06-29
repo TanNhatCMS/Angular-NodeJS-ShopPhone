@@ -148,9 +148,11 @@ const updateSubscription = async (req, res) => {
 const getCurrent = async (req, res) => {
     const {email, _id, fullName, role, verify, address, avatar, phoneNumber} = req.user;
 
-    res.status(200).json({
-        status: 'success',
-        message: 'Current User Data',
+    handlerResponse(
+        res,
+        200,
+        'Current User Data',
+       {
         user: {
             email: email,
             fullName: fullName,

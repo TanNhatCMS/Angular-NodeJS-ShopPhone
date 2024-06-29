@@ -252,4 +252,8 @@ utils.getJsonFileContent = async (filename) => {
   }
 }
 utils.generateUniqueId = () => Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+utils.setHeader =(cb) =>{
+  cb.header("Access-Control-Allow-Origin", "*");
+  cb.header("Content-Type", "application/json");
+}
 module.exports = utils;

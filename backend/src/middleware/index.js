@@ -10,10 +10,10 @@ const delayResponse = require('./delayResponse');
 
 function injectMiddleWares(app) {
   // enable compression.
- // app.use(compression());
+  app.use(compression());
 
   // enable CORS.
-  //app.use(cors());
+  app.use(cors());
 
   // use helmet JS.
  //app.use(helmet());
@@ -25,9 +25,9 @@ function injectMiddleWares(app) {
 
   app.use(logger);
 
-  //app.use(cleanRequest);
+  app.use(cleanRequest);
 
- // app.use(delayResponse);
+  app.use(delayResponse);
 }
 
 module.exports = injectMiddleWares;

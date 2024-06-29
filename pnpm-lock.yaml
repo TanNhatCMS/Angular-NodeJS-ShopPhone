@@ -39,9 +39,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
       debug:
         specifier: 4.3.5
         version: 4.3.5(supports-color@5.5.0)
@@ -3099,9 +3099,8 @@ packages:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
-  crypto@1.0.1:
-    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
+  crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
 
   css-loader@7.1.1:
     resolution: {integrity: sha512-OxIR5P2mjO1PSXk44bWuQ8XtMK4dpEqpIyERCx3ewOo3I8EmbcxMPUc5ScLtQfgXtOojoMv57So4V/C02HQLsw==}
@@ -10495,7 +10494,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  crypto@1.0.1: {}
+  crypto-js@4.2.0: {}
 
   css-loader@7.1.1(webpack@5.91.0(esbuild@0.21.3)):
     dependencies:

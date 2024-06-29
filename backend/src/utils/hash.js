@@ -1,8 +1,9 @@
-const crypto = require('crypto')
-const md5 = (data) => crypto.createHash('md5').update(data).digest('hex')
-const sha256 = (data) => crypto.createHash('sha256').update(data).digest('hex')
+const CryptoJS = require('crypto-js');
+
+const md5 = (data) => CryptoJS.MD5(data).toString();
+const sha256 = (data) => CryptoJS.SHA256(data).toString();
 
 module.exports = {
 	md5,
 	sha256,
-}
+};

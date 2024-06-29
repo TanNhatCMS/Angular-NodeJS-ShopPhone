@@ -1,4 +1,4 @@
-const { APIError } = require('../utils/error');
+const APIError = require('../utils/error');
 const helpers = {};
 const messageList = {
     400: "Bad Request",

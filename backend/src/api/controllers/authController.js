@@ -106,6 +106,7 @@ const signIn = async (req, res) => {
         "Login Successful: You have been successfully logged in.",
         {
             user: {
+                id: id,
                 email: user.email,
                 fullName: user.fullName,
                 avatarURL: user.avatarURL || '',
@@ -154,15 +155,16 @@ const getCurrent = async (req, res) => {
         'Current User Data',
        {
         user: {
+            id: _id,
             email: email,
             fullName: fullName,
             avatar: avatar || '',
-            address: {
-                city: address.city || '',
-                district: address.district || '',
-                ward: address.ward || '',
-                street: address.street || ''
-            },
+            address: [
+                {city: address.city || ''},
+                {district: address.district || ''},
+                {ward: address.ward || ''},
+                {street: address.street || ''}
+            ],
             role: role,
             phoneNumber: phoneNumber || '',
             verify: verify || false,

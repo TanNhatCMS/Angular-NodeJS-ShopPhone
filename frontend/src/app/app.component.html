@@ -1,3 +1,11 @@
-<app-header />
-<router-outlet />
-<app-footer />
+<div class="wrapper">
+  <app-header/>
+  <main
+    [@routeAnimations]="prepareRoute(outlet)"
+    class="container main"
+  >
+
+    <router-outlet #outlet="outlet"/>
+  </main>
+  <app-footer/>
+</div>

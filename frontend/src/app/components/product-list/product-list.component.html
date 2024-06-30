@@ -1,0 +1,124 @@
+<div class="col-md-12 text-right m-2">
+    <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalId">
+        Add Product
+    </button>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Code</th>
+            <th>Available</th>
+            <th>Price</th>
+            <th>5 Star Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of productlist; let i = index">
+            <td scope="row"><img src="{{item.imageUrl}}" width="50px" alt=""></td>
+            <td><a class="productName" [routerLink]="['/product-details', item.id]">{{item.productName}}</a></td>
+            <td>{{item.productCode}}</td>
+            <td>{{item.releaseDate}}</td>
+            <td>{{item.price}}</td>
+            <td>
+                <app-star [rating]="item.starRating" (outRating)="viewStar($event)"></app-star>
+            </td>
+            <td>
+                <button class="badge bg-warning" (click)="Edit(i);IsAdd=0;IsUpdate=2" data-bs-toggle="modal"
+                    data-bs-target="#modalId">Edit</button>
+                <button class="badge bg-danger" (click)="Delete(i)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Modal -->
+<!-- Modal trigger button -->
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Product
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formProduct">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="product-name">Product Name</label>
+                                <input id="product-name" type="text" [formControl]="formProduct.controls.productName"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="product-code">Product Code</label>
+                                <input id="product-code" type="text" [formControl]="formProduct.controls.productCode"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input id="date" type="date" [formControl]="formProduct.controls.releaseDate"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input id="price" type="number" [formControl]="formProduct.controls.price" class="form-control">
+                            </div>
+                        </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="rating" class="col-md-2 control-label">Rating</label>
+                          <input id="rating" placeholder="Rating" type="number" [formControl]="formProduct.controls.starRating" class="form-control">
+                        </div>
+                      </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input id="description" type="text" [formControl]="formProduct.controls.description"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="picture">Picture</label>
+                                <input id="picture" type="file" [formControl]="formProduct.controls.imageUrl"
+                                    (change)="onChange($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img [src]="file" width="20%" alt="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" *ngIf="IsAdd==1" (click)="Add()">Save</button>
+                <button type="button" class="btn btn-primary" *ngIf="IsUpdate==2" (click)="Update()">Update</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="IsAdd=1;IsUpdate=0">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+    const myModal = new bootstrap.Modal(
+        document.getElementById("modalId"),
+        options,
+    );
+</script>
+<!-- Modal -->

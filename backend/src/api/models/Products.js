@@ -5,11 +5,11 @@ const {handleSaveError} = require('./hooks');
 const productSchema = new Schema({
     technicalInfo: [
         {
-            name: {type: String},
+            title: {type: String},
             content: [
                 {
-                    title: {type: String},
-                    describe: {type: String}
+                    name: {type: String},
+                    description: {type: String}
                 }
             ]
         }
@@ -45,6 +45,9 @@ const productSchema = new Schema({
     detailedDescription: {type: String, required: true},
     isDeleted: { type: Boolean, default: false },
     deletedAt: { type: Date },
+}, {
+    timestamps: true,
+    versionKey: false
 });
 
 productSchema.post("save", handleSaveError);

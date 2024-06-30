@@ -10,8 +10,11 @@ import {slideInAnimation} from "../animations";
   animations: [slideInAnimation],
 })
 export class AppComponent {
-  title = 'ShopPhone';
-  constructor(private authService: AuthService, private router: Router) {
+  title = 'Shop Phone';
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.url === '/logout' && this.isAuthenticated()) {
         this.logout();

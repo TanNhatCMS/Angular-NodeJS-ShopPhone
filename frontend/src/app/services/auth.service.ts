@@ -4,7 +4,7 @@ import {LoginForm, RegisterForm} from "../models/auth";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from '../../environments/environment';
 import {LoaderService} from "./loader.service";
-import {ErrorDialogService} from "./error-dialog.service";
+import {DialogService} from "./dialog.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class AuthService implements OnInit {
 
   constructor(
     private loaderService: LoaderService,
-    private errorDialogService: ErrorDialogService,
+    private dialogService: DialogService,
     private router: Router,
     private http: HttpClient
   ) {
@@ -54,13 +54,16 @@ export class AuthService implements OnInit {
     }).subscribe({
       next: (response: any) => {
         this.isAuthenticated = true;
-        // Save token and refreshToken if needed
         localStorage.setItem('token', response.token);
         this.router.navigate(['']);
-        this.getUserInfo(response.token); // Fetch user info after login
+        this.getUserInfo(response.token);
       },
       error: (err) => {
-        this.errorDialogService.openDialog('Login not successful ' + err.message);
+        console.log(err);
+        this.dialogService.openDialog({
+          title: 'Đăng nhập thất bại',
+          message: 'Đăng nhập thất bại: ' + err.error.message? err.error.message : err.message
+        });
         this.isAuthenticated = false;
       },
       complete: () => {
@@ -71,7 +74,10 @@ export class AuthService implements OnInit {
 
   register(form: RegisterForm) {
     if (form.password !== form.comfirm_password) {
-      this.errorDialogService.openDialog('Passwords do not match');
+      this.dialogService.openDialog({
+        title: 'Đăng ký thất bại',
+        message: 'Mật khẩu không khớp'
+      });
       return;
     }
 
@@ -84,20 +90,25 @@ export class AuthService implements OnInit {
     this.http.post(
       this.apiUrl + '/auth/signup',
       {
-        email: form.email, // Assuming email is used as username
+        email: form.email,
         password: form.password,
         fullName: form.fullName
       }
     ).subscribe({
       next: (response: any) => {
         //this.isAuthenticated = true;
-        // Save token and refreshToken if needed
-        this.errorDialogService.openDialog('Register ' + response.data.user.email + ' successfully');
+        this.dialogService.openDialog({
+          title: 'ĐĂNG KÝ THÀNH CÔNG',
+          message: 'Đăng ký thành công: ' + response.data.user.email
+        });
         this.router.navigate(['/login']);
         // this.getUserInfo(response.token); // Fetch user info after login
       },
       error: (err) => {
-        this.errorDialogService.openDialog('Register not successful');
+        this.dialogService.openDialog({
+          title: 'ĐĂNG KÝ THẤT BẠI',
+          message: 'Đăng ký thất bại: ' + err.message
+        });
 
         // this.isAuthenticated = false;
       },
@@ -121,14 +132,20 @@ export class AuthService implements OnInit {
       this.http.post(this.apiUrl + '/auth/logout', {}, {headers})
         .subscribe({
           next: (response: any) => {
-            this.errorDialogService.openDialog('Logout successfully');
+            this.dialogService.openDialog({
+              title: 'ĐĂNG XUẦT',
+              message: 'Đăng xuất thành công'
+            });
             this.isAuthenticated = false;
             this.router.navigate(['login']);
             localStorage.removeItem('token');
             this.currentUser = null; // Clear user info on logout
           },
           error: (err) => {
-            this.errorDialogService.openDialog('Logout not successful: ' + err.message);
+            this.dialogService.openDialog({
+              title: 'Đăng xuất thất bại',
+              message: 'Đăng xuất thất bại: ' + err.message
+            });
             this.isAuthenticated = true;
           },
           complete: () => {

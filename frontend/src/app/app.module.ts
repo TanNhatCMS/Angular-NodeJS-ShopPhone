@@ -30,6 +30,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {LoaderComponent} from './components/loader/loader.component';
 import {LoaderInterceptor} from './services/loader-interceptor.service';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {LoaderInterceptor} from './services/loader-interceptor.service';
     BannerComponent,
     LoginComponent,
     RegisterComponent,
+    DialogComponent,
   ],
 
   imports: [

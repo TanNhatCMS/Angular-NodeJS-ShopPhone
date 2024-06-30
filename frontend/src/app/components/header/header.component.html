@@ -1,0 +1,53 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
+    <div class="container">
+      <a class="navbar-brand me-5" href="#">
+        <i class="fa-lg fa-solid fa-robot me-3"></i>Shop Phone
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto nav1">
+          <li class="nav-item text-center mx-5">
+            <a class="nav-link active" href="/frontend/public" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-home fa-xl mb-1"></i>
+              Trang chủ
+            </a>
+          </li>
+          <li class="nav-item text-center">
+            <a class="nav-link active" href="/admin" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-xl fa-user-gear"></i>
+              Quản lý sản phẩm
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto nav2">
+          <li class="nav-item text-center">
+            <a class="nav-link js-toggle-cart active" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-xl fa-shopping-cart"></i>
+              <span class="badge rounded-pill badge-notification bg-light text-dark" id="cartCount"></span>
+              Giỏ hàng
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/cart/1" href="#">My Cart</a>
+          </li>
+          <ng-container *ngIf="!isAuthenticated()">
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/login" href="#">Login</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/register" href="#">Register</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="isAuthenticated()">
+            <li class="nav-item active">
+              <a class="nav-link" (click)="logout()" routerLink="/Logout" href="#">Logout</a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

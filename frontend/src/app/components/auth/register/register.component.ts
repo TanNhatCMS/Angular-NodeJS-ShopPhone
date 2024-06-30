@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {RegisterForm} from "../auth";
-import {AuthService} from "../auth.service";
+import {RegisterForm} from "../../../models/auth";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -9,6 +9,7 @@ import {AuthService} from "../auth.service";
 })
 export class RegisterComponent {
   form: RegisterForm = {
+    fullName: '',
     email: '',
     password: '',
     comfirm_password: ''

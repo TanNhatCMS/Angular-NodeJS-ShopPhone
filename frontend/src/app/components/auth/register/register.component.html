@@ -8,6 +8,12 @@
              placeholder="Địa chỉ Email" aria-describedby="helpId">
     </div>
     <div class="form-group">
+      <label for="fullName">Họ và Tên</label>
+      <input type="text" [(ngModel)]="form.fullName" name="fullName" id="fullName"
+             class="form-control"
+             placeholder="Nhập họ và tên" aria-describedby="fullName">
+    </div>
+    <div class="form-group">
       <label for="password">Mật khẩu</label>
       <input type="password" [(ngModel)]="form.password" name="password"
              id="password" autocomplete="on"

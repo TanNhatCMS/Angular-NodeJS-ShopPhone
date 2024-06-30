@@ -1,8 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { LoginForm, RegisterForm } from "./auth";
+import {Injectable, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {LoginForm, RegisterForm} from "../models/auth";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
+import {LoaderService} from "./loader.service";
+import {ErrorDialogService} from "./error-dialog.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,12 @@ export class AuthService implements OnInit {
   enableDebug: boolean = false;
   currentUser: any = null;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private loaderService: LoaderService,
+    private errorDialogService: ErrorDialogService,
+    private router: Router,
+    private http: HttpClient
+  ) {
     this.apiUrl = environment.apiUrl;
     this.enableDebug = environment.enableDebug;
 
@@ -53,7 +60,7 @@ export class AuthService implements OnInit {
         this.getUserInfo(response.token); // Fetch user info after login
       },
       error: (err) => {
-        alert('Login not successful');
+        this.errorDialogService.openDialog('Login not successful ' + err.message);
         this.isAuthenticated = false;
       },
       complete: () => {
@@ -62,22 +69,9 @@ export class AuthService implements OnInit {
     });
   }
 
-  login2(form: LoginForm) {
-    this.isLoading = true;
-    const user = this.Users.find(user => user.email === form.email && user.password === form.password);
-    if (user) {
-      this.isAuthenticated = true;
-      this.router.navigate(['']);
-    } else {
-      alert('Login not successful');
-      this.isAuthenticated = false;
-    }
-    this.isLoading = false;
-  }
-
   register(form: RegisterForm) {
     if (form.password !== form.comfirm_password) {
-      alert('Passwords do not match');
+      this.errorDialogService.openDialog('Passwords do not match');
       return;
     }
 
@@ -87,27 +81,30 @@ export class AuthService implements OnInit {
     //   return;
     // }
     this.isLoading = true;
-    this.http.post(this.apiUrl + '/auth/signup', {
-      email: form.email, // Assuming email is used as username
-      password: form.password,
-      fullName: "full name"
-    }).subscribe({
+    this.http.post(
+      this.apiUrl + '/auth/signup',
+      {
+        email: form.email, // Assuming email is used as username
+        password: form.password,
+        fullName: form.fullName
+      }
+    ).subscribe({
       next: (response: any) => {
         //this.isAuthenticated = true;
         // Save token and refreshToken if needed
-        alert('Register ' + response.user.email + ' successfully');
+        this.errorDialogService.openDialog('Register ' + response.data.user.email + ' successfully');
         this.router.navigate(['/login']);
         // this.getUserInfo(response.token); // Fetch user info after login
       },
       error: (err) => {
-        alert('Register not successful');
+        this.errorDialogService.openDialog('Register not successful');
+
         // this.isAuthenticated = false;
       },
       complete: () => {
         this.isLoading = false;
       }
     });
-    this.Users.push({email: form.email, password: form.password});
     this.router.navigate(['login']);
     this.isAuthenticated = true;
     console.log(this.Users);
@@ -124,14 +121,14 @@ export class AuthService implements OnInit {
       this.http.post(this.apiUrl + '/auth/logout', {}, {headers})
         .subscribe({
           next: (response: any) => {
-            alert('Logout successfully');
+            this.errorDialogService.openDialog('Logout successfully');
             this.isAuthenticated = false;
             this.router.navigate(['login']);
             localStorage.removeItem('token');
             this.currentUser = null; // Clear user info on logout
           },
           error: (err) => {
-            alert('Logout not successful: ' + err.message);
+            this.errorDialogService.openDialog('Logout not successful: ' + err.message);
             this.isAuthenticated = true;
           },
           complete: () => {
@@ -150,9 +147,9 @@ export class AuthService implements OnInit {
       }
     }).subscribe({
       next: (response: any) => {
-        this.currentUser = response.user;
+        this.currentUser = response.data.user;
         this.isAuthenticated = true;
-        console.log('User info:', response.user);
+        console.log('User info:', response.data.user);
       },
       error: (err) => {
         console.log('Failed to fetch user info' + err.message);

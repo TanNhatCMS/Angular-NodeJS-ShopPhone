@@ -21,7 +21,7 @@ const signUp = async (req, res) => {
     if (user) {
         throw apiError(
             409,
-            "Email In Use: The provided email address is already associated with an existing account. If you already have an account, please log in.",
+            "Email đang sử dụng: Địa chỉ email được cung cấp đã được liên kết với một tài khoản hiện có. Nếu bạn đã có tài khoản, vui lòng đăng nhập.",
             null,
             true
         );
@@ -49,7 +49,7 @@ const signUp = async (req, res) => {
     handlerResponse(
         res,
         201,
-        "Congratulations! Your registration was successful. You can now sign in with your new account.",
+        "Chúc mừng! Đăng ký của bạn đã thành công. Bây giờ bạn có thể đăng nhập bằng tài khoản mới của mình.",
         {
             user: {
                 username: newUser.username,
@@ -67,7 +67,7 @@ const signIn = async (req, res) => {
     if (!user) {
         throw apiError(
             401,
-            "Authentication Failed: Incorrect login or password. Please double-check your credentials and try again.",
+            "Xác thực không thành công: Đăng nhập hoặc mật khẩu không chính xác. Vui lòng kiểm tra kỹ thông tin đăng nhập của bạn và thử lại.",
             null,
             true
         );
@@ -76,7 +76,7 @@ const signIn = async (req, res) => {
     if (!user.verify) {
         throw apiError(
             401,
-            "Email Not Verified: Please verify your email to access this resource. Check your inbox for instructions on how to complete the verification process.",
+            "Email chưa được xác minh: Vui lòng xác minh email của bạn để truy cập tài nguyên này. Kiểm tra hộp thư đến của bạn để biết hướng dẫn về cách hoàn tất quy trình xác minh.",
             null,
             true
         );
@@ -86,7 +86,7 @@ const signIn = async (req, res) => {
     if (!passwordCompare) {
         throw apiError(
             401,
-            "Authentication Failed: Incorrect login or password. Please double-check your credentials and try again",
+            "Xác thực không thành công: Đăng nhập hoặc mật khẩu không chính xác. Vui lòng kiểm tra kỹ thông tin đăng nhập của bạn và thử lại",
             null,
             true
         );
@@ -103,16 +103,16 @@ const signIn = async (req, res) => {
     handlerResponse(
         res,
         200,
-        "Login Successful: You have been successfully logged in.",
+        "Đăng nhập thành công: Bạn đã đăng nhập thành công.",
         {
             user: {
                 id: id,
                 email: user.email,
                 fullName: user.fullName,
                 avatarURL: user.avatarURL || '',
-            }
+            },
+            token: token
         },
-        {token: token}
     );
 };
 
@@ -122,7 +122,7 @@ const logOut = async (req, res) => {
     handlerResponse(
         res,
         200,
-        "Logout Successful: You have been successfully logged out."
+        "Đăng xuất thành công: Bạn đã đăng xuất thành công."
     );
 
 };
@@ -139,7 +139,7 @@ const updateSubscription = async (req, res) => {
     if (!updatedUser) {
         throw apiError(
             401,
-            "Authentication Failed: User not found or incorrect login. Please verify your credentials and try again."
+            "Xác thực không thành công: Không tìm thấy người dùng hoặc đăng nhập không chính xác. Vui lòng xác minh thông tin đăng nhập của bạn và thử lại."
         );
     }
 
@@ -152,19 +152,19 @@ const getCurrent = async (req, res) => {
     handlerResponse(
         res,
         200,
-        'Current User Data',
+        'Dữ liệu người dùng hiện tại',
        {
         user: {
             id: _id,
             email: email,
             fullName: fullName,
             avatar: avatar || '',
-            address: [
-                {city: address.city || ''},
-                {district: address.district || ''},
-                {ward: address.ward || ''},
-                {street: address.street || ''}
-            ],
+            address: {
+                city: address.city || '',
+                district: address.district || '',
+                ward: address.ward || '',
+                street: address.street || '',
+            },
             role: role,
             phoneNumber: phoneNumber || '',
             verify: verify || false,
@@ -192,55 +192,55 @@ const updateAvatar = async (req, res) => {
     });
 };
 //todo
-const verify = async (req, res) => {
-    const {verificationToken} = req.params;
-    const user = await User.findOne({verificationToken});
-    if (!user) {
-        throw HttpError(
-            400,
-            "Verification Issue: The provided email was not found or has already been verified."
-        );
-    }
-
-    await User.findByIdAndUpdate(user._id, {
-        verify: true,
-        verificationToken: "",
-    });
-    res.json({
-        message:
-            "Email Verification Successful: Your email has been successfully verified. You can now access and enjoy our services. Thank you for confirming your email!",
-    });
-};
+// const verify = async (req, res) => {
+//     const {verificationToken} = req.params;
+//     const user = await User.findOne({verificationToken});
+//     if (!user) {
+//         throw HttpError(
+//             400,
+//             "Vấn đề xác minh: Không tìm thấy email được cung cấp hoặc đã được xác minh."
+//         );
+//     }
+//
+//     await User.findByIdAndUpdate({ _id: user._id }, {
+//         verify: true,
+//         verificationToken: "",
+//     });
+//     res.json({
+//         message:
+//             "Email Verification Successful: Your email has been successfully verified. You can now access and enjoy our services. Thank you for confirming your email!",
+//     });
+// };
 //todo
-const resendVerifyEmail = async (req, res) => {
-    const {email} = req.body;
-    const user = await User.findOne({email});
-    if (!user) {
-        throw HttpError(
-            404,
-            "User Not Found: The provided email address could not be found in our records. Please make sure you've entered the correct email or consider registering for an account."
-        );
-    }
-    if (user.verify) {
-        throw HttpError(
-            400,
-            "Email Already Verified: This email address has already been verified."
-        );
-    }
-
-    const verifyEmail = {
-        to: email,
-        subject: "Action Required: Verify Your Email",
-        html: `<a target="_blank" href="http://${BASE_URL}/api/auth/${verificationToken}">Click to verify email</a>`,
-    };
-
-    await sendEmail(verifyEmail);
-
-    res.json({
-        message:
-            "Verification Email Sent: An email with instructions to verify your email has been successfully sent. Please check your inbox and follow the provided instructions. If you don't receive the email, please check your spam folder or contact our support team for assistance.",
-    });
-};
+// const resendVerifyEmail = async (req, res) => {
+//     const {email} = req.body;
+//     const user = await User.findOne({email});
+//     if (!user) {
+//         throw HttpError(
+//             404,
+//             "User Not Found: The provided email address could not be found in our records. Please make sure you've entered the correct email or consider registering for an account."
+//         );
+//     }
+//     if (user.verify) {
+//         throw HttpError(
+//             400,
+//             "Email Already Verified: This email address has already been verified."
+//         );
+//     }
+//
+//     const verifyEmail = {
+//         to: email,
+//         subject: "Action Required: Verify Your Email",
+//         html: `<a target="_blank" href="http://${BASE_URL}/api/auth/${verificationToken}">Click to verify email</a>`,
+//     };
+//
+//     await sendEmail(verifyEmail);
+//
+//     res.json({
+//         message:
+//             "Verification Email Sent: An email with instructions to verify your email has been successfully sent. Please check your inbox and follow the provided instructions. If you don't receive the email, please check your spam folder or contact our support team for assistance.",
+//     });
+// };
 
 module.exports = {
     signUp: ctrlWrapper(signUp),
@@ -249,6 +249,6 @@ module.exports = {
     logOut: ctrlWrapper(logOut),
     updateSubscription: ctrlWrapper(updateSubscription),
     updateAvatar: ctrlWrapper(updateAvatar),
-    verify: ctrlWrapper(verify),
-    resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+   // verify: ctrlWrapper(verify),
+    //resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
 };

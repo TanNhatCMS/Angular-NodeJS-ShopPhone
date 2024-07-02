@@ -6,7 +6,7 @@ const {
   userSignupAuthSchema,
   userSigninAuthSchema,
   updateSubscriptionSchema,
-  verificationEmailSchema,
+//  verificationEmailSchema,
 } =  require('../schemas/auth.js');
 
 
@@ -18,14 +18,14 @@ router.post(
   authController.signUp
 );
 
-router.get("/verify/:verificationToken", authController.verify);
+// router.get("/verify/:verificationToken", authController.verify);
 
-router.post(
-  "/verify",
-  isEmptyBody,
-  validateBody(verificationEmailSchema),
-  authController.resendVerifyEmail
-);
+// router.post(
+//   "/verify",
+//   isEmptyBody,
+//   validateBody(verificationEmailSchema),
+//   authController.resendVerifyEmail
+// );
 
 router.post(
   "/signin",

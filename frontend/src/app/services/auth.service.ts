@@ -9,7 +9,7 @@ import {DialogService} from "./dialog.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService{
   isAuthenticated: boolean = false;
   isLoading: boolean = false;
   apiUrl: string = '';
@@ -35,17 +35,6 @@ export class AuthService implements OnInit {
     }
   }
 
-  ngOnInit() {
-
-  }
-
-  Users: any[] = [
-    {
-      email: 'itc.edu@gmail.com',
-      password: '123456789'
-    }
-  ];
-
   login(form: LoginForm) {
     this.isLoading = true;
     this.http.post(this.apiUrl + '/auth/signin', {
@@ -54,9 +43,9 @@ export class AuthService implements OnInit {
     }).subscribe({
       next: (response: any) => {
         this.isAuthenticated = true;
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.data.token);
         this.router.navigate(['']);
-        this.getUserInfo(response.token);
+        this.getUserInfo(response.data.token);
       },
       error: (err) => {
         console.log(err);
@@ -99,26 +88,22 @@ export class AuthService implements OnInit {
         //this.isAuthenticated = true;
         this.dialogService.openDialog({
           title: 'ĐĂNG KÝ THÀNH CÔNG',
-          message: 'Đăng ký thành công: ' + response.data.user.email
+          message: 'Đăng ký thành công: ' + response.data.user.email + response.message? response.message : ""
         });
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], { state: { email: response.data.user.email } });
         // this.getUserInfo(response.token); // Fetch user info after login
       },
       error: (err) => {
         this.dialogService.openDialog({
           title: 'ĐĂNG KÝ THẤT BẠI',
-          message: 'Đăng ký thất bại: ' + err.message
+          message: 'Đăng ký thất bại: ' + err.error.message? err.error.message : err.message
         });
-
         // this.isAuthenticated = false;
       },
       complete: () => {
         this.isLoading = false;
       }
     });
-    this.router.navigate(['login']);
-    this.isAuthenticated = true;
-    console.log(this.Users);
   }
 
   logout() {
@@ -127,14 +112,13 @@ export class AuthService implements OnInit {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-
       this.isLoading = true;
       this.http.post(this.apiUrl + '/auth/logout', {}, {headers})
         .subscribe({
           next: (response: any) => {
             this.dialogService.openDialog({
               title: 'ĐĂNG XUẦT',
-              message: 'Đăng xuất thành công'
+              message: 'Đăng xuất thành công ' + response.message? response.message : ""
             });
             this.isAuthenticated = false;
             this.router.navigate(['login']);
@@ -144,7 +128,7 @@ export class AuthService implements OnInit {
           error: (err) => {
             this.dialogService.openDialog({
               title: 'Đăng xuất thất bại',
-              message: 'Đăng xuất thất bại: ' + err.message
+              message: 'Đăng xuất thất bại: ' + err.error.message? err.error.message : err.message
             });
             this.isAuthenticated = true;
           },
@@ -169,7 +153,7 @@ export class AuthService implements OnInit {
         console.log('User info:', response.data.user);
       },
       error: (err) => {
-        console.log('Failed to fetch user info' + err.message);
+        console.log('Failed to fetch user info' + err.error.message? err.error.message : err.message);
       }
     });
   }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {LoginForm} from "../../../models/auth";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,9 +12,14 @@ export class LoginComponent {
     email: '',
     password: ''
   }
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+    if (state !== undefined && state['email'] !== undefined) {
+      this.form.email = state['email'];
+    }
+  }
   submit() {
     this.authService.login(this.form)
-    console.log(this.form)
   }
 }

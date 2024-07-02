@@ -28,7 +28,7 @@ export class ProductListComponent {
   IsUpdate: number = 0;
   id: number = 0;
   constructor(private prod: ProductsService){
-    this.productlist = prod.getAllProducts();
+    //this.productlist = prod.getAllProducts();
   }
   ngOnInit(): void {
 

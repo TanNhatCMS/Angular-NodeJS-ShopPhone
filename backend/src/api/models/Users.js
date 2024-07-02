@@ -7,16 +7,16 @@ const userSchema = new Schema({
     email: {
         type: String,
         match: emailRegExp,
-        required: [true, "Email is required"],
+        required: [true, "Email là bắt buộc"],
         unique: true,
     },
     password: {
         type: String,
-        required: [true, "Set password for user"]
+        required: [true, "Đặt mật khẩu cho tài khoản"]
     },
     fullName: {
         type: String,
-        required: [true, "Set FullName for user"],
+        required: [true, "Đặt Tên đầy đủ cho tài khoản"],
     },
     avatar: {
         type: String
@@ -37,7 +37,7 @@ const userSchema = new Schema({
         },
         street: {
             type: String
-        }
+        },
     },
     verify: {
         type: Boolean,
@@ -48,7 +48,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['banned', 'user', 'admin'],
         default: "user",
     }
 }, {

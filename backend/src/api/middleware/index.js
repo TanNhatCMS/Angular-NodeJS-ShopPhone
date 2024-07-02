@@ -67,7 +67,7 @@ middleware.isEmptyBodyFavorite = (req, res, next) => {
 middleware.authenticate = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {
-        return next(HttpError(401, "Access Denied: Authorization not define"));
+        return next(HttpError(401, "Truy cập bị từ chối: Ủy quyền không xác định"));
     }
     const [bearer, token] = authorization.split(" ");
     if (bearer !== "Bearer") {

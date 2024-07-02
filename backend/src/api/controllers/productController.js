@@ -5,25 +5,18 @@ const Product = require('../models/Products');
 async function getAllProducts(req, res, next) {
   const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
-  try {
+
     const products = await Product.find({ isDeleted: false  }, "-createdAt -updatedAt -isDeleted -deletedAt", {
       skip,
       limit,
     });
-
     if (!products.length) {
       throw apiError(
           404,
           "No Product found"
       );
     }
-
     res.status(200).json(products);
-  }
-    catch (error) {
-        next(error);
-    }
-
 }
 // async function getAllProductsByAdmin(req, res, next) {
 //   //const { role } = req.user;

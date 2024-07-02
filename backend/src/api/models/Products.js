@@ -5,17 +5,20 @@ const {handleSaveError} = require('./hooks');
 const productSchema = new Schema({
     technicalInfo: [
         {
-            title: {type: String},
+            _id: false,
+            title: { type: String },
             content: [
                 {
-                    name: {type: String},
-                    description: {type: String}
+                    _id: false,
+                    name: { type: String },
+                    description: { type: String }
                 }
             ]
         }
     ],
     variants: [
         {
+            _id: false,
             productStatus: {type: String},
             color: {type: String},
             ram: {type: String},
@@ -33,7 +36,10 @@ const productSchema = new Schema({
     ratings: {
         averageRating: {type: Number}
     },
-    brand: { type: String, enum: ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'Realme', 'Nokia', 'OnePlus', 'Sony'] },
+    brand: {
+        type: String,
+        enum: ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'Realme', 'Nokia', 'OnePlus', 'Sony']
+    },
     category: {type: String},
     owner: {
         type: Schema.Types.ObjectId,
@@ -43,8 +49,8 @@ const productSchema = new Schema({
     name: {type: String, required: true, unique: true},
     shortDescription: {type: String, required: true},
     detailedDescription: {type: String, required: true},
-    isDeleted: { type: Boolean, default: false },
-    deletedAt: { type: Date },
+    isDeleted: {type: Boolean, default: false},
+    deletedAt: {type: Date},
 }, {
     timestamps: true,
     versionKey: false

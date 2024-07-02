@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/products';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-
-  constructor() { }
+  apiUrl: string = '';
+  private productSource = new BehaviorSubject([]);
+  currentProducts = this.productSource.asObservable();
+  constructor(private http: HttpClient) {
+    this.apiUrl = environment.apiUrl;
+  }
 
   products: Product[] = [
     {
@@ -75,10 +82,12 @@ export class ProductsService {
       inStock: 50
     }
   ];
+  getAllProducts = (): Observable<any> =>
+    this.http.get<any>(`${this.apiUrl}/products`);
 
-  getAllProducts(): Product[] {
-    return this.products;
-  }
+  // getAllProducts(): Product[] {
+  //   return this.products;
+  // }
 
   getProductById(id: number): Product | undefined {
     return this.products.find(product => product.id === id);
@@ -123,5 +132,8 @@ export class ProductsService {
 
   AutoId() {
     return this.products.length ? Math.max(...this.products.map(product => product.id)) + 1 : 1;
+  }
+  changeProducts(data: any): void {
+    this.productSource.next(data);
   }
 }

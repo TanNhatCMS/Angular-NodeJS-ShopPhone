@@ -12,10 +12,15 @@ export class HomeComponent implements OnInit{
   products: Product[] = [];
 
   constructor(private productsService: ProductsService) {
-    //this.products = prod.getAllProducts();
+
+      productsService.getAllProducts().subscribe( (res: any) => {
+      console.log(res);
+      this.products = res;
+      this.filterProductList = this.products;
+    });
   }
   ngOnInit(): void {
-    this.filterProductList = this.products;
+
     this.productsService.currentProducts.subscribe((res: Array<any>) => {
       const [data] = res;
       if (data && data.length) {
@@ -25,6 +30,7 @@ export class HomeComponent implements OnInit{
          this.getProducts();
       }
     });
+    this.filterProductList = this.products;
 
   }
   getProducts(): void {

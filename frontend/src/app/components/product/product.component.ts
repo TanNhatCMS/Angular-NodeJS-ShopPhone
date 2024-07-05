@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../models/products';
+//import { NgbRatingConfig, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product',
@@ -8,4 +9,5 @@ import { Product } from '../../models/products';
 })
 export class ProductComponent {
   @Input() productHome: Product[]=[];
+
 }

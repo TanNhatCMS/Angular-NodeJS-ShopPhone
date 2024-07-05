@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { ErrorDialogService } from './error-dialog.service';
 import { LoaderService } from './loader.service';
 @Injectable()
-export class LoaderInterceptor implements HttpInterceptor {
+export class LoaderInterceptorService implements HttpInterceptor {
   private requests: HttpRequest<any>[] = [];
 
   constructor(

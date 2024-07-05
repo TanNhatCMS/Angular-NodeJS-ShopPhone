@@ -1,22 +1,22 @@
 <app-banner/>
 
-<!--<div class="row mt-3">-->
-<!--    <div class="col-md-6">-->
-<!--        <form class="form-inline">-->
-<!--            <div class="form-group">-->
-<!--                <input type="text" size="50" [(ngModel)]="searching" (ngModelChange)="filterResults()" name="searching"-->
-<!--                    class="input form-control" placeholder="Tìm sản phẩm">-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; <div class="col-md-6">-->
-<!--        <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalId">-->
-<!--            Add Product-->
-<!--        </button>-->
-<!--    </div> &ndash;&gt;-->
-<!--</div>-->
-<!--<div class="row mt-3">-->
-<!--    <div class="col-md-12">-->
-<!--        <app-product [productHome]="filterProductList"></app-product>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="row mt-3">
+    <div class="col-md-6">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" size="50" [(ngModel)]="searching" (ngModelChange)="filterResults()" name="searching"
+                    class="input form-control" placeholder="Tìm sản phẩm">
+            </div>
+        </form>
+    </div>
+    <!-- <div class="col-md-6">
+        <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalId">
+            Add Product
+        </button>
+    </div> -->
+</div>
+<div class="row mt-3">
+    <div class="col-md-12">
+        <app-product [productHome]="filterProductList"></app-product>
+    </div>
+</div>

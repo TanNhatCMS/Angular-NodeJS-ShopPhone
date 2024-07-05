@@ -29,8 +29,16 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {LoaderComponent} from './components/loader/loader.component';
-import {LoaderInterceptor} from './services/loader-interceptor.service';
+import {LoaderInterceptorService} from './services/loader-interceptor.service';
 import { DialogComponent } from './components/dialog/dialog.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RatingComponent} from "./common/rating/rating.component";
+import {RatingPipe} from "./common/rating/rating.pipe";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {MatInput} from "@angular/material/input";
+
 
 @NgModule({
   declarations: [
@@ -49,7 +57,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     BannerComponent,
     LoginComponent,
     RegisterComponent,
-    DialogComponent,
+    DialogComponent
   ],
 
   imports: [
@@ -63,12 +71,23 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    RatingComponent,
+    RatingPipe,
+    MatCheckbox,
+    MatError,
+    MatLabel,
+    MatFormField,
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    MatInput
   ],
   providers: [
     ErrorDialogService,
     AuthService,
-    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true},
     provideHttpClient(),
     provideAnimationsAsync(),
     {provide: ErrorHandler, useClass: GlobalErrorHandler},

@@ -13,13 +13,13 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     title: 'Home',
-    data: { animation: 'Left-Right' },
+    data: { animation: 'Right-Left' },
   },
   {
     path: 'list',
     component: ProductListComponent,
     title: 'Product List',
-    data: { animation: 'Right-Left' },
+    data: { animation: 'Left-Right' },
   },
   {
     path: 'cart/:id',
@@ -31,7 +31,7 @@ const routes: Routes = [
     path: 'product-details/:id',
     component: ProductDetailsComponent,
     title: 'Product Details',
-    data: { animation: 'Right-Left' },
+    data: { animation: 'Left-Right' },
   },
   {
     path: 'login',

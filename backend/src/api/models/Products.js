@@ -16,6 +16,18 @@ const productSchema = new Schema({
             ]
         }
     ],
+    screen: { type: String },
+    backCamera : { type: String },
+    frontCamera: { type: String },
+    productStatus: { type: String },
+    color: { type: String },
+    ram: { type: String },
+    storage: { type: String },
+    price: { type: Number },
+    promotionalPrice: { type: Number },
+    promotionStatus: { type: Boolean },
+    stockQuantity: { type: Number },
+    images: [],
     variants: [
         {
             _id: false,
@@ -40,6 +52,7 @@ const productSchema = new Schema({
         type: String,
         enum: ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'Realme', 'Nokia', 'OnePlus', 'Sony']
     },
+    thumbnail: {type: String},
     category: {type: String},
     owner: {
         type: Schema.Types.ObjectId,

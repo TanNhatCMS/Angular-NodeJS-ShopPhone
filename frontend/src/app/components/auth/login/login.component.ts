@@ -19,7 +19,17 @@ export class LoginComponent {
       this.form.email = state['email'];
     }
   }
-  submit() {
-    this.authService.login(this.form)
+
+  submit(event: Event): void {
+    event.preventDefault();
+
+  }
+  login(){
+    if(this.form.email === '' || this.form.password === '') {
+      this.authService.login(this.form)
+    }
+  }
+  register(){
+    this.router.navigate(['/register'], { state: { animation: 'Right-Left' } })
   }
 }

@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const {validateBody} = require('../decorators');
-const { getAllProducts , addNewProduct} = require('../controllers/productController');
+const { getAllProducts , addNewProduct, getProductByID} = require('../controllers/productController');
 const {isEmptyBody, authenticate, upload} = require('../middleware');
 
 
 
 router.get("/", getAllProducts);
+router.get("/:id", getProductByID);
 router.post(
     "/",
     authenticate,

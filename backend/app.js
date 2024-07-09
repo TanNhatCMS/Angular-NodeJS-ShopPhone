@@ -1,80 +1,66 @@
+/*
+@Author: Nguyen Tuan Kiet
+@Email: mrkiet.dev@gmail.com
+
+MIT License
+Copyright (c) 2024 TanNhatCMS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
-const bodyParser = require('body-parser')
-const indexRouter = require('./src/routes/index');
-const adminRouter = require('./src/routes/admin');
-const shopRouter = require('./src/routes/shop');
-const apiRouter = require('./src/api/routes');
-
-const injectMiddleWares = require('./src/middleware');
-const {errorMiddleware} = require('./src/api/middleware/handler');
-const authUser = require('./src/middleware/auth');
+const {injectMiddleWares} = require('./src/middleware');
+const {errorMiddleware} = require('./src/middleware/handler');
 const routes = require('./src/routes');
-const { validateEnvVar, loadDataInMemory } = require('./src/utils/util');
-const connectDB = require('./src/db');
-const authRouter = require("./src/api/routes/auth");
-
-
+const { validateEnvVar } = require('./src/utils/util');
+const connectDB = require('./src/db/mongodb');
 // validate if we have all the env variables setup.
 validateEnvVar();
-
 const app = express();
 // serving static files
-app.use('/storage', express.static(path.join(__dirname, '../public')));
-const path_frontend = path.join(__dirname, '../frontend/dist/shopphone/browser');
-//app.use('/', express.static(path_frontend));
-
-
-// use database to store logs and custom responses
+// app.use('/assets', express.static(path.join(__dirname, './public')));
+// use database
 connectDB();
-// load all data in memory
-loadDataInMemory();
 // set up all middleware
 injectMiddleWares(app);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(bodyParser.json())
-app.use((req, res, next) => {
-     res.setHeader('Access-Control-Allow-Origin', '*')
-     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-     res.setHeader('Access-Control-Allow-Headers', ['Content-Type', 'Authorization'])
-     next()
-})
-
-// const corsOptions = {
-//     origin: 'http://localhost:4200',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//     optionsSuccessStatus: 200 // For legacy browser support
-// };
-//
-// app.use(cors(corsOptions));
-
-app.use('/v1', apiRouter);
-
-
-
-// routes with authorization
-app.use('/api/auth/', authUser, routes);
 // routes
 app.use('/', routes);
-//app.use('/*', express.static(path_frontend));
-app.use((req, res) => {
-    res.status(404).json({
-        status: 'error',
-        message: "Page not found"
-    });
+app.use((req, res, next) => {
+    const acceptsJson = req.accepts('json') && req.get('Accept').includes('application/json');
+    if (acceptsJson) {
+        res.status(404).json({
+            status: 'error',
+            message: "Page not found"
+        });
+    } else {
+        res.status(404).render('error', {
+            page: '404',
+            description: 'Page not found |Lập Trình Web Phía Máy Chủ | Nguyễn Tuấn Kiệt ',
+            status: '404',
+            message: 'Page not found',
+            action: '404',
+
+        });
+    }
 });
 app.use(errorMiddleware);
-
-
 module.exports = app;

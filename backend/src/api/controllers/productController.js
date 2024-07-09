@@ -50,6 +50,16 @@ async function getAllProducts(req, res, next) {
 //   }
 // }
 //
+
+async function getProductByID(req, res, next) {
+  const { id: _id } = req.params;
+  const product = await Product.findOne({ _id });
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    throw apiError(404, "Product not found");
+  }
+}
 async function addNewProduct(req, res, next) {
   const { _id: owner } = req.user;
   const newContact = await Product.create({ ...req.body, owner });
@@ -103,7 +113,7 @@ async function addNewProduct(req, res, next) {
 
 module.exports =  {
   getAllProducts: ctrlWrapper(getAllProducts),
-  // getContactsById: ctrlWrapper(getProductById),
+   getProductByID: ctrlWrapper(getProductByID),
    addNewProduct: ctrlWrapper(addNewProduct),
   // deleteContact: ctrlWrapper(deleteProduct),
   // editContact: ctrlWrapper(editProduct),

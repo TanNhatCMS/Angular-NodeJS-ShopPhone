@@ -12,7 +12,7 @@ const {handlerResponse} = require('../middleware/handler');
 
 const avatarPath = path.resolve("public", "avatars");
 
-const {JWT_SECRET, BASE_URL} = process.env;
+const {JWT_SECRET} = process.env;
 
 const signUp = async (req, res) => {
     const {name, email, password} = req.body;

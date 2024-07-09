@@ -1,101 +1,121 @@
-const ModelProduct = require("../models/modelProduct");
-const db = require("../models/database/db"); // assuming you export your db instance from this file
-const modelProduct = new ModelProduct(db);
+const {apiError, HttpError} = require('../helpers');
+const { ctrlWrapper } = require('../decorators');
+const Product = require('../models/Products');
 
-exports.AddProduct = (req, res) => {
-    modelProduct.save(req.body, (err, result) => {
-        if (err) {
-            return res.status(500).json({
-                message: 'Failed to create product',
-                success: false,
-                status: 500
-            });
-        }
-        res.status(201).json({
-            message: 'Created product',
-            success: true,
-            status: 201
-        });
+async function getAllProducts(req, res, next) {
+  const { page = 1, limit = 20 } = req.query;
+  const skip = (page - 1) * limit;
+
+    const products = await Product.find({ isDeleted: false  }, "-createdAt -updatedAt -isDeleted -deletedAt", {
+      skip,
+      limit,
     });
-};
-
-exports.getProducts = (req, res) => {
-    try {
-        modelProduct.fetchAll((err, products) => {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Failed to fetch products',
-                    success: false,
-                    status: 500
-                });
-            }
-            res.status(200).json({
-                products: products,
-                message: 'Fetched products',
-                success: true,
-                status: 200,
-                total: products.length
-            });
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Failed to fetch products. error: ' + err,
-            products: [],
-            success: false,
-            status: 500,
-            total: 0
-        });
+    if (!products.length) {
+      throw apiError(
+          404,
+          "No Product found"
+      );
     }
-};
+    res.status(200).json(products);
+}
+// async function getAllProductsByAdmin(req, res, next) {
+//   //const { role } = req.user;
+//   const { page = 1, limit = 20 } = req.query;
+//   const skip = (page - 1) * limit;
+//   try {
+//     const products = await Product.find({  }, "-createdAt -updatedAt", {
+//       skip,
+//       limit,
+//     });
+//
+//     if (!products.length) {
+//       throw new HttpError(404, "No Product found");
+//     }
+//
+//     res.status(200).json(products);
+//   }
+//   catch (error) {
+//     next(error);
+//   }
+//
+// }
+// async function getProductById(req, res, next) {
+//   const { contactId: _id } = req.params;
+//   //const { _id: owner } = req.user;
+//   const contactById = await Product.findOne({ _id });
+//   if (contactById) {
+//     res.json(contactById);
+//   } else {
+//     throw HttpError(404, "Contact not found");
+//   }
+// }
+//
 
-exports.getProduct = (req, res) => {
-    const productId = req.params.productId;
-    modelProduct.findById(productId, (err, product) => {
-        if (err) {
-            return res.status(err.status).json({
-                message: err.message,
-                success: err.success,
-                status: err.status
-            });
-        }
-        res.status(200).json(product);
-    });
-};
+async function getProductByID(req, res, next) {
+  const { id: _id } = req.params;
+  const product = await Product.findOne({ _id });
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    throw apiError(404, "Product not found");
+  }
+}
+async function addNewProduct(req, res, next) {
+  const { _id: owner } = req.user;
+  const newContact = await Product.create({ ...req.body, owner });
+  res.status(201).json(newContact);
+}
+//
+// async function deleteProduct(req, res, next) {
+//   const { contactId: _id } = req.params;
+//   const { _id: owner } = req.user;
+//   const deleteContact = await Product.findOneAndDelete({ _id, owner });
+//   if (deleteContact) {
+//     res.json({ message: "contact deleted" });
+//   } else {
+//     throw HttpError(404);
+//   }
+// }
+//
+// async function editProduct(req, res, next) {
+//   const { contactId: _id } = req.params;
+//   const { _id: owner } = req.user;
+//   const updatedContact = await Product.findOneAndUpdate(
+//     { _id, owner },
+//     req.body,
+//     {
+//       new: true,
+//     }
+//   );
+//   if (!updatedContact) {
+//     throw HttpError(404, "Not found");
+//   }
+//   res.json(updatedContact);
+// }
+//
+// async function updateProduct(req, res, next) {
+//   const { contactId: _id } = req.params;
+//   const { _id: owner } = req.user;
+//   const updatedContact = await Product.findOneAndUpdate(
+//     { _id, owner },
+//     req.body,
+//     {
+//       new: true,
+//     }
+//   );
+//
+//   if (!updatedContact) {
+//     throw HttpError(404, "Not found");
+//   }
+//
+//   res.json(updatedContact);
+// }
 
-exports.deleteProduct = (req, res) => {
-    const productId = req.params.productId;
-    modelProduct.deleteById(productId, (err, result) => {
-        if (err) {
-            return res.status(err.status).json({
-                message: err.message,
-                success: err.success,
-                status: err.status
-            });
-        }
-        res.status(result.status).json({
-            message: result.message,
-            success: result.success,
-            status: result.status
-        });
-    });
-};
-
-exports.updateProduct = (req, res) => {
-    const productId = req.params.productId;
-    const body = req.body;
-    modelProduct.updateProduct(productId, body, (err) => {
-        if (err) {
-            return res.status(500).json({
-                message: 'Failed to update product',
-                success: false,
-                status: 500
-            });
-        }
-        res.status(200).json({
-            message: 'Product updated',
-            success: true,
-            status: 200
-        });
-    });
+module.exports =  {
+  getAllProducts: ctrlWrapper(getAllProducts),
+   getProductByID: ctrlWrapper(getProductByID),
+   addNewProduct: ctrlWrapper(addNewProduct),
+  // deleteContact: ctrlWrapper(deleteProduct),
+  // editContact: ctrlWrapper(editProduct),
+  // updateContact: ctrlWrapper(updateProduct),
 };

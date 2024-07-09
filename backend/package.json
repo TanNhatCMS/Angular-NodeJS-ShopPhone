@@ -10,8 +10,7 @@
   },
   "scripts": {
     "start": "node ./bin/www --mode production",
-    "dev": "env-cmd -f config/dev.env nodemon",
-    "watch:minify-public-js": "node scripts/minify-public-js.js"
+    "dev": "nodemon"
   },
   "license": "MIT",
   "dependencies": {

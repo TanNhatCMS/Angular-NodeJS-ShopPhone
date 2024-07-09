@@ -1,24 +1,59 @@
 const router = require('express').Router();
-const { loginByUsernamePassword, getNewRefreshToken } = require('../controllers/auth');
-const authUser = require('../middleware/auth');
+const { validateBody } = require('../decorators');
+const authController = require('../controllers/authController.js');
+const { isEmptyBody, authenticate
+  //, upload
+  } =   require('../middleware');
+const {
+  userSignupAuthSchema,
+  userSigninAuthSchema,
+  updateSubscriptionSchema,
+//  verificationEmailSchema,
+} =  require('../schemas/auth.js');
 
-// login user
-router.post('/login', loginByUsernamePassword);
 
-// get current authenticated user
-router.get('/me', authUser, (req, res) => {
-  res.send(req.user);
-});
 
-// get new refresh token
-router.post('/refresh', async (req, res, next) => {
-  try {
-    const tokens = await getNewRefreshToken(req.body);
+router.post(
+  "/signup",
+  isEmptyBody,
+  validateBody(userSignupAuthSchema),
+  authController.signUp
+);
 
-    res.send(tokens);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get("/verify/:verificationToken", authController.verify);
+
+// router.post(
+//   "/verify",
+//   isEmptyBody,
+//   validateBody(verificationEmailSchema),
+//   authController.resendVerifyEmail
+// );
+
+router.post(
+  "/signin",
+  isEmptyBody,
+  validateBody(userSigninAuthSchema),
+  authController.signIn
+);
+
+router.get("/current", authenticate, authController.getCurrent);
+
+router.post("/logout", authenticate, authController.logOut);
+
+router.patch(
+  "/",
+  isEmptyBody,
+  authenticate,
+  validateBody(updateSubscriptionSchema),
+  authController.updateSubscription
+);
+
+// router.patch(
+//   "/avatars",
+//   upload.single("avatar"),
+//   // isEmptyBody,
+//   authenticate,
+//   authController.updateAvatar
+// );
 
 module.exports = router;

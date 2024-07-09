@@ -6,7 +6,7 @@ async function getAllUsers(req, res, next) {
   const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
 
-    const users = await User.find({  }, "-createdAt -updatedAt", {
+    const users = await User.find({ isDeleted: false  }, "-createdAt -updatedAt", {
       skip,
       limit,
     });
@@ -29,7 +29,7 @@ async function getUserByID(req, res, next) {
     throw apiError(404, "Product not found");
   }
 }
-async function CreateUser(req, res, next) {
+async function addNewUser(req, res, next) {
   const newUser = await User.create({ ...req.body });
   res.status(201).json(newUser);
 }
@@ -61,9 +61,9 @@ async function updateUser(req, res, next) {
 
 
 module.exports =  {
-  GetAllUsers: ctrlWrapper(getAllUsers),
-  GetUserByID: ctrlWrapper(getUserByID),
-  CreateUser: ctrlWrapper(CreateUser),
-  DeleteUser: ctrlWrapper(deleteUser),
-  UpdateUser: ctrlWrapper(updateUser),
+  getAllUsers: ctrlWrapper(getAllUsers),
+   getUserByID: ctrlWrapper(getUserByID),
+   addNewUser: ctrlWrapper(addNewUser),
+  deleteUser: ctrlWrapper(deleteUser),
+  updateUser: ctrlWrapper(updateUser),
 };

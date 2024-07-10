@@ -125,28 +125,10 @@ const logOut = async (req, res) => {
     );
 
 };
-//todo
-const updateSubscription = async (req, res) => {
-    const {subscription} = req.body;
-    const {_id: owner} = req.user;
-    const updatedUser = await User.findOneAndUpdate(
-        owner,
-        {subscription},
-        {new: true}
-    );
 
-    if (!updatedUser) {
-        throw apiError(
-            401,
-            "Xác thực không thành công: Không tìm thấy người dùng hoặc đăng nhập không chính xác. Vui lòng xác minh thông tin đăng nhập của bạn và thử lại."
-        );
-    }
-
-    res.json(updatedUser);
-};
 
 const getCurrent = async (req, res) => {
-    const {email, _id, fullName, role, verify, address, avatar, phoneNumber} = req.user;
+    const {email, _id, name, role, token, verify, avatar, phoneNumber} = req.user;
 
     handlerResponse(
         res,
@@ -156,14 +138,9 @@ const getCurrent = async (req, res) => {
         user: {
             id: _id,
             email: email,
-            fullName: fullName,
+            name: name,
             avatar: avatar || '',
-            address: {
-                city: address.city || '',
-                district: address.district || '',
-                ward: address.ward || '',
-                street: address.street || '',
-            },
+            token: token || '',
             role: role,
             phoneNumber: phoneNumber || '',
             verify: verify || false,
@@ -246,7 +223,6 @@ module.exports = {
     signIn: ctrlWrapper(signIn),
     getCurrent: ctrlWrapper(getCurrent),
     logOut: ctrlWrapper(logOut),
-    updateSubscription: ctrlWrapper(updateSubscription),
     updateAvatar: ctrlWrapper(updateAvatar),
    // verify: ctrlWrapper(verify),
     //resendVerifyEmail: ctrlWrapper(resendVerifyEmail),

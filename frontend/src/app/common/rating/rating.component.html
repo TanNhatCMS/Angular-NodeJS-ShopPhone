@@ -1,0 +1,10 @@
+<div class="ratings lh-1 d-flex align-items-center justify-content-center">
+  <div class="star">
+    <ng-container *ngFor="let content of ratings.star; trackBy: trackByFn">
+      <i [ngClass]="content.star"></i>
+    </ng-container>
+  </div>
+  <span *ngIf="ratings.totalRatings" class="d-block text-body position-relative">
+    ({{ ratings.totalRatings }})
+  </span>
+</div>

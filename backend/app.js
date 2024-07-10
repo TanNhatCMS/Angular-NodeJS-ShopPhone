@@ -34,7 +34,7 @@ const connectDB = require('./src/db/mongodb');
 validateEnvVar();
 const app = express();
 // serving static files
-// app.use('/assets', express.static(path.join(__dirname, './public')));
+app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
 // use database
 connectDB();
 // set up all middleware

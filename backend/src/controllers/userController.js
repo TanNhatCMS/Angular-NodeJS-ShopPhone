@@ -29,7 +29,8 @@ async function getUserByID(req, res, next) {
     throw apiError(404, "Product not found");
   }
 }
-async function CreateUser(req, res, next) {
+
+async function createUser(req, res, next) {
   const newUser = await User.create({ ...req.body });
   res.status(201).json(newUser);
 }
@@ -38,7 +39,7 @@ async function deleteUser(req, res, next) {
   const { id: _id } = req.params;
   const deleteContact = await User.findOneAndDelete({ _id });
   if (deleteContact) {
-    res.json({ message: "contact deleted" });
+    res.json({ message: "user deleted" });
   } else {
     throw HttpError(404);
   }
@@ -61,9 +62,9 @@ async function updateUser(req, res, next) {
 
 
 module.exports =  {
-  GetAllUsers: ctrlWrapper(getAllUsers),
-  GetUserByID: ctrlWrapper(getUserByID),
-  CreateUser: ctrlWrapper(CreateUser),
-  DeleteUser: ctrlWrapper(deleteUser),
-  UpdateUser: ctrlWrapper(updateUser),
+  getAllUsers: ctrlWrapper(getAllUsers),
+  getUserByID: ctrlWrapper(getUserByID),
+  createUser: ctrlWrapper(createUser),
+  deleteUser: ctrlWrapper(deleteUser),
+  updateUser: ctrlWrapper(updateUser),
 };

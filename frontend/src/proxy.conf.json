@@ -6,11 +6,11 @@
       "^/api": ""
     }
   },
-  "/storage": {
-    "target": "http://localhost:3000/storage",
+  "/assets": {
+    "target": "http://localhost:3000/assets",
     "secure": false,
     "pathRewrite": {
-      "^/storage": ""
+      "^/assets": ""
     }
   }
 }

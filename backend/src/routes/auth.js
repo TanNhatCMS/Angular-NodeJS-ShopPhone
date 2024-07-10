@@ -20,15 +20,6 @@ router.post(
   authController.signUp
 );
 
-// router.get("/verify/:verificationToken", authController.verify);
-
-// router.post(
-//   "/verify",
-//   isEmptyBody,
-//   validateBody(verificationEmailSchema),
-//   authController.resendVerifyEmail
-// );
-
 router.post(
   "/signin",
   isEmptyBody,
@@ -40,13 +31,6 @@ router.get("/current", authenticate, authController.getCurrent);
 
 router.post("/logout", authenticate, authController.logOut);
 
-router.patch(
-  "/",
-  isEmptyBody,
-  authenticate,
-  validateBody(updateSubscriptionSchema),
-  authController.updateSubscription
-);
 
 // router.patch(
 //   "/avatars",

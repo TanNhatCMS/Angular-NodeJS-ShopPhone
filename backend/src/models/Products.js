@@ -3,19 +3,9 @@ const {handleSaveError} = require('./hooks');
 
 
 const productSchema = new Schema({
-    technicalInfo: [
-        {
-            _id: false,
-            title: { type: String },
-            content: [
-                {
-                    _id: false,
-                    name: { type: String },
-                    description: { type: String }
-                }
-            ]
-        }
-    ],
+    name: {type: String, required: true, unique: true},
+    slug: {type: String},
+    description: {type: String, required: true},
     screen: { type: String },
     backCamera : { type: String },
     frontCamera: { type: String },
@@ -27,46 +17,27 @@ const productSchema = new Schema({
     promotionalPrice: { type: Number },
     promotionStatus: { type: Boolean },
     stockQuantity: { type: Number },
+    thumbnail: {type: String},
+    category: {type: String},
     images: [
         {
             _id: false,
             url: { type: String }
         }
     ],
-    variants: [
-        {
-            _id: false,
-            productStatus: {type: String},
-            color: {type: String},
-            ram: {type: String},
-            storage: {type: String},
-            price: {type: Number},
-            promotionalPrice: {type: Number},
-            promotionStatus: {type: Boolean},
-            stockQuantity: {type: Number},
-            images: {
-                mainImage: {type: String},  // URL to the main image
-                imageGallery: {type: [String]}  // Array of URLs to other images
-            }
-        }
-    ],
-    ratings: {
-        averageRating: {type: Number}
-    },
     brand: {
         type: String,
         enum: ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'Realme', 'Nokia', 'OnePlus', 'Sony']
     },
-    thumbnail: {type: String},
-    category: {type: String},
+    ratings: {
+        averageRating: {type: Number},
+        totalRatings: {type: Number}
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "user",
         required: true,
     },
-    name: {type: String, required: true, unique: true},
-    shortDescription: {type: String, required: true},
-    detailedDescription: {type: String, required: true},
     isDeleted: {type: Boolean, default: false},
     deletedAt: {type: Date},
 }, {

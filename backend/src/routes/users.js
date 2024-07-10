@@ -1,27 +1,26 @@
 const router = require('express').Router();
-
+const {isEmptyBody, authenticate, upload} = require('../middleware');
 const {
-    CreateUser,
-    GetAllUsers,
-    GetUserByID,
-    UpdateUser,
-    DeleteUser
+    createUser,
+    getAllUsers,
+    getUserByID,
+    updateUser,
+    deleteUser
  } = require('../controllers/userController');
 
-// Create a new user
-router.post('/', CreateUser);
-
 // Get all users
-router.get('/', GetAllUsers);
+router.get('/', getAllUsers);
+
+// Create a new user
+router.post('/', authenticate, createUser);
 
 // Get user by ID
-router.get('/:id', GetUserByID);
-
+router.get('/:id', getUserByID);
 
 // Update a user
-router.put('/:id', UpdateUser);
+router.put('/:id', authenticate, updateUser);
 
 // Delete a user
-router.delete('/:id', DeleteUser);
+router.delete('/:id', authenticate, deleteUser);
 
 module.exports = router;

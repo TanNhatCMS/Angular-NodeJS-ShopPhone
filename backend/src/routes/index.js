@@ -8,6 +8,6 @@ const usersRoutes = require('./users');
 router.use('/', staticRoutes);
 router.use('/test', testRoutes);
 router.use('/auth', authRoutes);
-router.use(['/products', '/product'], productsRoutes);
-router.use(['/users', '/user'], usersRoutes);
+router.use(['/product', '/products'], productsRoutes);
+router.use(['/user', '/users'], usersRoutes);
 module.exports = router;

@@ -1,0 +1,135 @@
+<!-- Product Details Card -->
+<mat-card
+  class="trinta-card product-details-card mb-25 bg-white border-none d-block"
+>
+  <mat-card-content>
+    <div class="row align-items-center">
+      <div class="col-xxxl-5 col-lg-6 col-md-12">
+        <div class="product-details-image">
+          <div class="product-gallery__featured">
+            <owl-carousel-o [options]="{items: 1, dots: false, animateIn: 'fadeIn', animateOut: 'fadeOut'}" #owlCar>
+              <ng-container *ngFor="let image of productImages">
+                <ng-template carouselSlide [id]="image.url">
+                  <img [src]="image.url" [alt]="image.url" class="border-radius">
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+          <div class="product-gallery__carousel">
+            <owl-carousel-o [options]="{dots: false, margin: 10, autoWidth: true}">
+              <ng-container *ngFor="let image of productImages; let i = index">
+                <ng-template carouselSlide [id]="image.url+i" [width]="100">
+                  <a (click)="owlCar.to(image.url); changeImage(image.url+i)" class="border-radius">
+                    <img [src]="image.url" [alt]="image.url" class="border-radius">
+                  </a>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxxl-7 col-lg-6 col-md-12">
+        <div class="product-details-content">
+          <div class="title d-flex align-items-center justify-content-between">
+            <h3 class="mb-0">
+              {{ product.name }}
+            </h3>
+          </div>
+          <span class="category text-body d-block">
+            {{ product.brand }}
+          </span>
+
+          <app-rating *ngIf="averageRating !== undefined" [rating]="averageRating"></app-rating>
+
+          <div class="ratings lh-1 d-flex align-items-center">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-line"></i>
+            <span class="d-block fs-14 text-primary">
+              (3250 reviews)
+            </span>
+          </div>
+          <span class="sub-title d-block fs-14 fw-medium">
+            Mô tả :
+          </span>
+          <p class="fs-15 text-black">
+            {{ product.description }}
+          </p>
+          <ul class="list p-0 list-unstyled">
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Màn hình:
+              </span>
+              <span class="text-black">
+                {{ product.screen }}
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                RAM:
+              </span>
+              <span class="text-black">
+                {{ product.ram }}
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Bộ nhớ:
+              </span>
+              <span class="text-black">
+                {{ product.storage }}
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Camera trước:
+              </span>
+              <span class="text-black">
+                {{ product.frontCamera }}
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Camera sau:
+              </span>
+              <span class="text-black">
+                {{ product.backCamera }}
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Số lượng :
+              </span>
+              <span class="d-block availability">
+                có sẵn <span class="fw-semibold fs-15">{{ product.stockQuantity }}</span> sản phẩm
+              </span>
+            </li>
+            <li class="d-flex align-items-center fs-14">
+              <span class="d-block fw-medium">
+                Giá:
+              </span>
+              <span class="text-black">
+                <div class="price lh-1 d-flex justify-content-center align-items-center">
+                  <span class="d-block text-decoration-line-through text-body">
+                    {{ product.price }}
+                  </span>
+                  <span class="d-block fw-semibold text-black heading-font-family">
+                    {{ product.promotionalPrice }}
+                  </span>
+                </div>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Reviews -->
+<!--<app-reviews />-->
+
+<!-- Outlets Details -->
+<app-outlets-details />

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   standalone: true,
@@ -7,8 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RatingPipe implements PipeTransform {
 
   transform(value: any): any {
-    const result = Math.floor(value / 2);
-    return result;
+    return Math.floor(value / 2);
   }
 
 }

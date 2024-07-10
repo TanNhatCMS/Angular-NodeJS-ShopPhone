@@ -1,0 +1,17 @@
+<app-banner/>
+<div class="row mt-3">
+  <div class="col-md-6">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" size="50" [(ngModel)]="searching" (ngModelChange)="filterResults()" name="searching"
+               class="input form-control" placeholder="Tìm sản phẩm">
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Products Grid -->
+<div class="row" *ngFor="let product of filterProductList">
+  <app-product-item [product]="product"></app-product-item>
+</div>
+

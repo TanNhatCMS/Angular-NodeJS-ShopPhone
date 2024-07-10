@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Lỗi:</h1>
+<div mat-dialog-content>
+  <p>
+    {{ data?.name }}
+    <em *ngIf="data?.status">(code: {{ data?.status }})</em>
+  </p>
+  <p>
+    {{ data?.message }}
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button mat-dialog-close>Đóng</button>
+</div>

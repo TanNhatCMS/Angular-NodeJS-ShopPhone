@@ -1,10 +1,9 @@
-export interface LoginForm {
+export interface SignInForm {
   email: string,
   password: string
 }
-export interface RegisterForm {
-  fullName: string;
+export interface SignUpForm {
+  name: string;
   email: string,
-  password: string,
-  comfirm_password: string
+  password: string
 }

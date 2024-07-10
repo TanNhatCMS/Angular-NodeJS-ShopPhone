@@ -1,72 +1,80 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/products';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import {AuthService} from "./auth.service";
+import {DialogService} from "./dialog.service";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductsService {
-  apiUrl: string = '';
+
+  private baseURL: string = environment.apiUrl;
+
   private productSource = new BehaviorSubject([]);
+
   currentProducts = this.productSource.asObservable();
-  constructor(private http: HttpClient) {
-    this.apiUrl = environment.apiUrl;
+
+  constructor(
+    private http: HttpClient,
+    private dialogService: DialogService,
+    private authService: AuthService
+              ) {
   }
 
-  products: Product[] = [];
-  getAllProducts = (): Observable<any> =>
-    this.http.get<any>(`${this.apiUrl}/products`);
+  getAllProducts = (): Observable<Product[]> =>
+    this.http.get<Product[]>(`${this.baseURL}/products`);
 
-  // getAllProducts(): Product[] {
-  //   return this.products;
-  // }
+  getProductById = (id: string) =>  this.http.get<Product>(`${this.baseURL}/product/${id}`);
 
-  getProductById(id: number): Product | undefined {
-    return this.products.find(product => product.id === id);
+  getProductBySlug = (slug: string) =>  this.http.get<Product>(`${this.baseURL}/product/slug/${slug}`);
+
+  AddProduct(frmProduct: any): Product {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    let data: Product = {} as Product;
+   this.http.post<Product[]>(`${this.baseURL}/product`, frmProduct, { headers }).subscribe({
+      next: (response: any) => {
+        this.dialogService.openDialog({
+          title: 'Thêm sản phẩm',
+          message: 'Thêm sản phẩm thành công'
+        });
+        return response.data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.dialogService.openDialog({
+          title: 'Thêm sản phẩm thất bại',
+          message: 'Thêm sản phẩm thất bại: ' + (err.error.message ? err.error.message : err.message)
+        });
+      }
+    });
+   return data;
   }
 
-  AddProduct(frmProduct: any, fileImg: string) {
-    const newProduct: Product = {
-      ...frmProduct,
-      id: this.AutoId(),
-      imageUrl: fileImg,
-      starRating: frmProduct.starRating || 0
-    };
-    this.products.push(newProduct);
-    console.log(this.products);
+  UpdateProduct(id: string, frmProduct: any): Observable<Product[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put<Product[]>(`${this.baseURL}/product/${id}`, frmProduct, { headers });
   }
 
-  EditProduct(index: number) {
-    return this.products[index];
+  DeleteProduct(id: string): Observable<Product[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete<Product[]>(`${this.baseURL}/product/${id}`, { headers });
   }
 
-  UpdateProduct(index: number, frmProduct: any, fileImg: string) {
-    this.products[index] = {
-      ...this.products[index],
-      productName: frmProduct.productName,
-      productCode: frmProduct.productCode,
-      releaseDate: frmProduct.releaseDate,
-      price: frmProduct.price,
-      description: frmProduct.description,
-      imageUrl: fileImg,
-      code: frmProduct.code || this.products[index].code,
-      des: frmProduct.des || this.products[index].des,
-      inStock: frmProduct.inStock || this.products[index].inStock,
-      starRating: frmProduct.starRating || this.products[index].starRating
-    };
-  }
-
-  DeleteProduct(index: number) {
-    if (confirm('Do you want to delete')) {
-      this.products.splice(index, 1);
-    }
-  }
-
-  AutoId() {
-    return this.products.length ? Math.max(...this.products.map(product => product.id)) + 1 : 1;
-  }
   changeProducts(data: any): void {
     this.productSource.next(data);
   }

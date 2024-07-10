@@ -1,0 +1,176 @@
+// Products Grid
+.trinta-card {
+  &.product-card {
+    padding: 20px 20px 30px;
+
+    .mat-mdc-card-header {
+      margin-bottom: 0;
+
+      .mat-mdc-card-title {
+        h5 {
+          font: {
+            size: 13px;
+            family: var(--fontFamily);
+          };
+        }
+      }
+    }
+    .mat-mdc-card-content {
+      text-align: center;
+
+      .image {
+        display: flex;
+        min-height: 216px;
+        align-items: center;
+        margin-bottom: 25px;
+        justify-content: center;
+
+        img {
+          transition: var(--transition);
+        }
+      }
+      .content {
+        h5 {
+          font-size: 16px;
+          margin-bottom: 15px;
+        }
+        .ratings {
+          .star {
+            margin-right: 3px;
+
+            i {
+              font-size: 16px;
+              color: #ee8336;
+              margin-right: 2px;
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+          }
+          span {
+            top: 2px;
+            margin-left: 3px;
+          }
+        }
+        .price {
+          margin-top: 20px;
+
+          span {
+            margin: {
+              left: 5px;
+              right: 5px;
+            };
+            &:nth-child(2) {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+    &:hover {
+      .mat-mdc-card-content {
+        .image {
+          img {
+            transform: scale(1.03);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Max width 767px */
+@media only screen and (max-width : 767px) {
+
+  // Products Grid
+  .trinta-card {
+    &.product-card {
+      padding: 20px;
+
+      .mat-mdc-card-content {
+        .image {
+          margin-bottom: 20px;
+        }
+        .content {
+          h5 {
+            font-size: 14px;
+            margin-bottom: 13px;
+          }
+          .ratings {
+            .star {
+              i {
+                font-size: 14px;
+              }
+            }
+            span {
+              top: 1px;
+              margin-left: 0;
+            }
+          }
+          .price {
+            margin-top: 17px;
+
+            span {
+              &:nth-child(2) {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+/* Min width 576px to Max width 767px */
+@media only screen and (min-width : 576px) and (max-width : 767px) {}
+
+/* Min width 768px to Max width 991px */
+@media only screen and (min-width : 768px) and (max-width : 991px) {
+
+  // Products Grid
+  .trinta-card {
+    &.product-card {
+      padding: 20px 20px 25px;
+
+      .mat-mdc-card-content {
+        .image {
+          margin-bottom: 20px;
+        }
+        .content {
+          h5 {
+            font-size: 15px;
+          }
+          .ratings {
+            .star {
+              i {
+                font-size: 15px;
+              }
+            }
+          }
+          .price {
+            margin-top: 17px;
+
+            span {
+              &:nth-child(2) {
+                font-size: 17px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+
+/* Min width 1600px */
+@media only screen and (min-width: 1600px) {}

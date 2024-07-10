@@ -1,0 +1,72 @@
+<div class="sign-in-area">
+  <div class="d-table">
+    <div class="d-table-cell">
+      <div
+        class="trinta-form ml-auto mr-auto bg-white border-radius"
+      >
+        <div class="title text-center">
+          <h3>
+            Đăng Nhập
+          </h3>
+          <p class="text-black fs-15">
+            Bạn chưa có tài khoản? <a routerLink="/authentication/sign-up" class="text-primary fw-medium">Đăng ký ở
+            đây</a>
+          </p>
+        </div>
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="label d-block fw-medium mb-10">
+              Địa chỉ Email
+            </label>
+            <mat-form-field>
+              <i-feather name="mail"></i-feather>
+              <mat-label>Nhập địa chỉ Email của bạn</mat-label>
+              <input matInput type="email" id="email" formControlName="email">
+            </mat-form-field>
+            <div class="error text-danger"
+                 *ngIf="authForm.get('email')!.hasError('required') && authForm.get('email')!.touched">
+              Vui lòng nhập email của bạn.Email là bắt buộc.
+            </div>
+            <div class="error text-danger"
+                 *ngIf="authForm.get('email')!.hasError('email') && authForm.get('email')!.touched">
+              Vui lòng nhập một địa chỉ email hợp lệ.Email bạn nhập không hợp lệ.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label d-block fw-medium mb-10">
+
+              Mật khẩu của bạn.
+            </label>
+            <mat-form-field>
+              <i-feather name="lock"></i-feather>
+              <mat-label>Nhập mật khẩu của bạn</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ẩn mật khẩu'"
+                      [attr.aria-pressed]="hide">
+                                <span class="material-symbols-outlined">
+                                    {{ hide ? 'visibility_off' : 'visibility' }}
+                                </span>
+              </button>
+            </mat-form-field>
+            <div class="error text-danger"
+                 *ngIf="authForm.get('password')!.hasError('required') && authForm.get('password')!.touched">
+              Vui lòng nhập mật khẩu của bạn.Mật khẩu là bắt buộc.
+            </div>
+            <div class="error text-danger"
+                 *ngIf="authForm.get('password')!.hasError('minlength') && authForm.get('password')!.touched">
+              Mật khẩu phải dài ít nhất 8 ký tự.
+            </div>
+          </div>
+          <div class="info d-flex justify-content-between align-items-center">
+            <mat-checkbox color="primary" formControlName="keepLoggedIn">
+              Giữ tôi đăng nhập
+            </mat-checkbox>
+          </div>
+          <button mat-button type="submit" [disabled]="authForm.invalid">
+            Đăng Nhập
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

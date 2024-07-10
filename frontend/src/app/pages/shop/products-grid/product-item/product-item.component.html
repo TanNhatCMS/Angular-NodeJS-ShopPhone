@@ -1,0 +1,51 @@
+<div class="col-sm-6 col-lg-4 col-xxl-3">
+  <mat-card
+    class="trinta-card product-card mb-25 bg-white border-none d-block"
+  >
+    <mat-card-header>
+      <mat-card-title>
+        <h5 class="mt-0 mb-0 fw-normal text-primary">
+          {{ product.brand }}
+        </h5>
+      </mat-card-title>
+<!--      <mat-card-subtitle>-->
+<!--        <button type="button" mat-button class="card-header-dot-btn lh-1 p-0 min-w-auto h-auto"-->
+<!--                [matMenuTriggerFor]="cardHeaderMenu">-->
+<!--          <i class="ri-more-2-fill"></i>-->
+<!--        </button>-->
+<!--        <mat-menu #cardHeaderMenu="matMenu" class="card-header-menu" xPosition="before">-->
+<!--          <button mat-menu-item>-->
+<!--            View-->
+<!--          </button>-->
+<!--          <button mat-menu-item>-->
+<!--            Edit-->
+<!--          </button>-->
+<!--          <button mat-menu-item>-->
+<!--            Delete-->
+<!--          </button>-->
+<!--        </mat-menu>-->
+<!--      </mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+      <a routerLink="/{{product.slug}}" class="image">
+        <img src="{{product.thumbnail}}" alt="{{product.name}}">
+      </a>
+      <div class="content">
+        <h5>
+          <a routerLink="/{{product.slug}}">
+            {{ product.name }}
+          </a>
+        </h5>
+        <app-rating [rating]="product.ratings.averageRating" [totalRatings]="product.ratings.totalRatings"></app-rating>
+        <div class="price lh-1 d-flex justify-content-center align-items-center">
+          <span class="d-block text-decoration-line-through text-body">
+                          {{ product.price }}
+          </span>
+          <span class="d-block fw-semibold text-black heading-font-family">
+            {{ product.promotionalPrice }}
+           </span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

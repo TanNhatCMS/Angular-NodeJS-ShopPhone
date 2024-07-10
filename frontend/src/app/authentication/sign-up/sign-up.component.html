@@ -1,0 +1,93 @@
+<div class="sign-up-area">
+  <div class="d-table">
+    <div class="d-table-cell">
+      <div class="trinta-form ml-auto mr-auto bg-white border-radius">
+        <div class="title text-center">
+          <h3>Đăng ký tài khoản</h3>
+          <p class="text-black fs-15">
+            Bạn đã có tài khoản? <a routerLink="/authentication" class="text-primary fw-medium">Đăng nhập tại đây</a>
+          </p>
+        </div>
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="label d-block fw-medium">Tên của bạn</label>
+            <mat-form-field>
+              <i-feather name="user"></i-feather>
+              <mat-label>Nhập tên của bạn</mat-label>
+              <input matInput type="text" id="name" formControlName="name">
+            </mat-form-field>
+            <div class="error text-danger" *ngIf="authForm.get('name')!.hasError('required') && authForm.get('name')!.touched">
+              Tên là bắt buộc.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label d-block fw-medium">Địa chỉ email</label>
+            <mat-form-field>
+              <i-feather name="mail"></i-feather>
+              <mat-label>Nhập địa chỉ email</mat-label>
+              <input matInput type="email" id="email" formControlName="email">
+            </mat-form-field>
+            <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('required') && authForm.get('email')!.touched">
+              Email thì cần thiết.
+            </div>
+            <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('email') && authForm.get('email')!.touched">
+              Vui lòng nhập địa chỉ email hợp lệ.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label d-block fw-medium">Mật khẩu của bạn</label>
+            <mat-form-field>
+              <i-feather name="lock"></i-feather>
+              <mat-label>Nhập mật khẩu của bạn</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <span class="material-symbols-outlined">
+                  {{hide ? 'visibility_off' : 'visibility'}}
+                </span>
+              </button>
+            </mat-form-field>
+            <div class="error text-danger" *ngIf="authForm.get('password')!.hasError('required') && authForm.get('password')!.touched">
+              Mật khẩu là bắt buộc.
+            </div>
+            <div class="error text-danger" *ngIf="authForm.get('password')!.hasError('minlength') && authForm.get('password')!.touched">
+              Mật khẩu phải dài ít nhất 8 ký tự.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label d-block fw-medium">Xác nhận mật khẩu</label>
+            <mat-form-field>
+              <i-feather name="lock"></i-feather>
+              <mat-label>Nhập mật khẩu của bạn</mat-label>
+              <input matInput [type]="hide2 ? 'password' : 'text'" id="confirm_password" formControlName="confirm_password">
+              <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                <span class="material-symbols-outlined">
+                  {{hide2 ? 'visibility_off' : 'visibility'}}
+                </span>
+              </button>
+            </mat-form-field>
+            <div class="error text-danger" *ngIf="authForm.get('confirm_password')!.hasError('required') && authForm.get('confirm_password')!.touched">
+              Mật khẩu là bắt buộc.
+            </div>
+            <div class="error text-danger" *ngIf="authForm.get('confirm_password')!.hasError('minlength') && authForm.get('confirm_password')!.touched">
+              Mật khẩu phải dài ít nhất 8 ký tự.
+            </div>
+            <div class="error text-danger" *ngIf="authForm.hasError('mismatch') && authForm.get('confirm_password')!.touched">
+              Mật khẩu không khớp.
+            </div>
+          </div>
+          <div class="info">
+            <mat-checkbox formControlName="terms" color="primary">
+              Tôi chấp nhận <a href="javascript:void(0);" class="text-primary">Điều khoản và điều kiện</a>
+            </mat-checkbox>
+            <div class="error text-danger" *ngIf="authForm.get('terms')!.hasError('required') && authForm.get('terms')!.touched">
+              Bạn phải đồng ý với Điều khoản và điều kiện.
+            </div>
+          </div>
+          <button mat-button type="submit" [disabled]="authForm.invalid">
+            Đăng ký
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

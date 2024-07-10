@@ -1,0 +1,34 @@
+<div
+    class="header-area bg-white box-shadow transition"
+    [ngClass]="{'active': isToggled}"
+>
+    <div class="d-md-flex align-items-center justify-content-between">
+        <div class="header-left-side d-flex align-items-center">
+            <div
+                class="burger-menu position-relative transition lh-1"
+                [ngClass]="{'active': isToggled}"
+                (click)="toggle()"
+            >
+                <i-feather name="align-left"></i-feather>
+            </div>
+<!--            <form class="search-box position-relative">-->
+<!--                <input type="text" class="input-search w-100 d-block border-none" placeholder="Search here..">-->
+<!--                <button type="submit" class="bg-transparent p-0 border-none transition">-->
+<!--                    <i-feather name="search"></i-feather>-->
+<!--                </button>-->
+<!--            </form>-->
+        </div>
+        <ul class="header-right-side d-flex align-items-center m-0 p-0 list-unstyled">
+            <li>
+                <button
+                    mat-button
+                    (click)="toggleTheme()"
+                    class="dark-swtich-btn"
+                    [class.active]="toggleService.isDark()"
+                >
+                    <i-feather name="moon"></i-feather>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

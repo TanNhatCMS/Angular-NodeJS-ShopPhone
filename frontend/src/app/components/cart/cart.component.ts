@@ -4,10 +4,16 @@ import { Cart } from '../../models/cart';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/products';
+import {CurrencyPipe, NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
+  standalone: true,
+  imports: [
+    CurrencyPipe,
+    NgForOf
+  ],
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
@@ -25,7 +31,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     let id = Number(this.router.snapshot.params['id']);
-    this.productDetail = this.productService.getProductById(id);
+    //this.productDetail = this.productService.getProductById(id);
     this.InStock = this.productDetail?.inStock || 0;
   }
 

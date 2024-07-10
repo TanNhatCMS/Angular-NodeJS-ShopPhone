@@ -1,0 +1,181 @@
+<mat-card class="trinta-card add-product-card mb-25 bg-white border-none d-block">
+  <mat-card-header>
+    <mat-card-title>
+      <h5 class="mt-0 mb-0">Thêm sản phẩm</h5>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label d-block fw-medium mb-10">Tên sản phẩm</label>
+          <mat-form-field>
+            <i-feather name="edit-3"></i-feather>
+            <mat-label>Nhập tên sản phẩm</mat-label>
+            <input matInput (input)="generateSlug()" type="text" id="title" formControlName="title">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+          <label class="label d-block fw-medium mb-10">Slug</label>
+          <mat-form-field>
+            <i-feather name="link"></i-feather>
+            <mat-label>Slug sản phẩm</mat-label>
+            <input matInput id="slug" formControlName="slug">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Màn hình</label>
+          <mat-form-field>
+            <i-feather name="edit-3"></i-feather>
+            <mat-label>Nhập thông tin màn hình</mat-label>
+            <input type="text" id="screen" formControlName="screen" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Ram</label>
+          <mat-form-field>
+            <i-feather name="edit-3"></i-feather>
+            <mat-label>Nhập thông tin RAM</mat-label>
+            <input type="text" id="ram" formControlName="ram" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Bộ nhớ</label>
+          <mat-form-field>
+            <i-feather name="edit-3"></i-feather>
+            <mat-label>Nhập thông tin bộ nhớ</mat-label>
+            <input type="text" id="storage" formControlName="storage" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Camera phía trước</label>
+          <mat-form-field>
+            <i-feather name="dollar-sign"></i-feather>
+            <mat-label>Nhập thông tin camera phía trước</mat-label>
+            <input type="text" id="frontCamera" formControlName="frontCamera" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Camera phía sau</label>
+          <mat-form-field>
+            <i-feather name="percent"></i-feather>
+            <mat-label>Nhập thông tin camera phía sau</mat-label>
+            <input type="text" id="backCamera" formControlName="backCamera" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+          <label class="label d-block fw-medium mb-10">Mô tả sản phẩm</label>
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+            <ngx-editor [editor]="editor" formControlName="description" [disabled]="false" [placeholder]="'Nội dung mô tả sản phẩm'"></ngx-editor>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Giá sản phẩm</label>
+          <mat-form-field>
+            <i-feather name="dollar-sign"></i-feather>
+            <mat-label>Nhập giá sản phẩm</mat-label>
+            <input  type="number"  formControlName="price" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Giá khuyến mãi</label>
+          <mat-form-field>
+            <i-feather name="percent"></i-feather>
+            <mat-label>Nhập giá khuyến mãi</mat-label>
+            <input  type="number"  formControlName="promotionalPrice" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Sản phẩm trong kho</label>
+          <mat-form-field>
+            <i-feather name="database"></i-feather>
+            <mat-label>Số lượng sản phẩm</mat-label>
+            <input type="number" formControlName="stockQuantity" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Trạng thái</label>
+          <mat-form-field>
+            <i-feather name="minimize"></i-feather>
+            <mat-label>Chọn trạng thái</mat-label>
+            <mat-select formControlName="productStatus">
+              <mat-option value="available">Cho phép bán</mat-option>
+              <mat-option value="noavailable">Không cho phép bán</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <label class="label d-block fw-medium mb-10">Chạy Khuyến mãi</label>
+          <mat-card-content>
+            <mat-checkbox formControlName="promotionStatus" color="primary"></mat-checkbox>
+          </mat-card-content>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Chọn Danh Mục</label>
+          <mat-form-field>
+            <i-feather name="shopping-bag"></i-feather>
+            <mat-label>Chọn danh mục sản phẩm</mat-label>
+            <mat-select formControlName="category">
+              <mat-option value="SmartPhone">Điện Thoại</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Chọn Thương Hiệu</label>
+          <mat-form-field>
+            <i-feather name="minimize"></i-feather>
+            <mat-label>Chọn Thương hiệu</mat-label>
+            <mat-select formControlName="brand">
+              <mat-option value="Apple">Apple</mat-option>
+              <mat-option value="Samsung">Samsung</mat-option>
+              <mat-option value="Huawei">Huawei</mat-option>
+              <mat-option value="Xiaomi">Xiaomi</mat-option>
+              <mat-option value="Oppo">Oppo</mat-option>
+              <mat-option value="Vivo">Vivo</mat-option>
+              <mat-option value="Realme">Realme</mat-option>
+              <mat-option value="Nokia">Nokia</mat-option>
+              <mat-option value="OnePlus">OnePlus</mat-option>
+              <mat-option value="Sony">Sony</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Đánh giá</label>
+          <mat-form-field>
+            <i-feather name="dollar-sign"></i-feather>
+            <mat-label>Nhập sao</mat-label>
+            <input  type="number"  formControlName="averageRating" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <label class="label d-block fw-medium mb-10">Lượt đánh giá</label>
+          <mat-form-field>
+            <i-feather name="percent"></i-feather>
+            <mat-label>Nhập lượt đánh giá</mat-label>
+            <input  type="number"  formControlName="totalRating" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+          <label class="label d-block fw-medium mb-10">Ảnh đại diện sản phẩm</label>
+          <mat-form-field>
+            <i-feather name="image"></i-feather>
+            <mat-label>Nhập ảnh đại diện sản phẩm</mat-label>
+            <input formControlName="thumbnail" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+          <label class="label d-block fw-medium mb-10">Hình ảnh sản phẩm</label>
+          <mat-form-field class="textarea">
+            <i-feather name="edit-3"></i-feather>
+            <mat-label>Nhập link hình ảnh sản phẩm, mỗi hình ảnh xuống dòng</mat-label>
+            <textarea formControlName="images" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="create-product-btn">
+        <button mat-button type="submit" [disabled]="productForm.invalid">Tạo sản phẩm</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

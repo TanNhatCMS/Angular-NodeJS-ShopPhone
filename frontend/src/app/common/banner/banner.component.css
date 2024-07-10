@@ -1,0 +1,6 @@
+.banner-image {
+  background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)),
+  url(http://localhost:4200/images/banner.jpg);
+  background-size: cover;
+  background-position: center;
+}

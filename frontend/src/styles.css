@@ -1,37 +1,37 @@
-* {
-  box-sizing: border-box;
-}
+/** {*/
+/*  box-sizing: border-box;*/
+/*}*/
 
-html {
-  position: relative;
-  min-height: 100%;
-  font-size: 16px;
-}
+/*html {*/
+/*  position: relative;*/
+/*  min-height: 100%;*/
+/*  font-size: 16px;*/
+/*}*/
 
-body {
-  margin-bottom: 0px;
-  background-color: #f7f7f7;
-}
+/*body {*/
+/*  margin-bottom: 0px;*/
+/*  background-color: #f7f7f7;*/
+/*}*/
 
-p {
-  margin: 0 0 16px;
-}
+/*p {*/
+/*  margin: 0 0 16px;*/
+/*}*/
 
-h2 {
-  margin: 0;
-}
+/*h2 {*/
+/*  margin: 0;*/
+/*}*/
 
-.nav1 {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
+/*.nav1 {*/
+/*  display: flex;*/
+/*  justify-content: flex-start;*/
+/*  width: 100%;*/
+/*}*/
 
-.nav2 {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
+/*.nav2 {*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*  width: 100%;*/
+/*}*/
 
 .btn:hover {
   outline: none;
@@ -43,50 +43,50 @@ footer {
   width: 100%;
 }
 
-@media (max-width: 1199.5px) {
-}
+/*@media (max-width: 1199.5px) {*/
+/*}*/
 
-@media (max-width: 991.5px) {
-  .card span {
-    font-size: 1.1rem;
-  }
-  #selectList {
-    width: 100% !important;
-  }
-}
+/*@media (max-width: 991.5px) {*/
+/*  .card span {*/
+/*    font-size: 1.1rem;*/
+/*  }*/
+/*  #selectList {*/
+/*    width: 100% !important;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 525.5px) {
-  #content.my-5 {
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-  }
-  .col-lg-4,
-  .col-md-6 {
-    padding-left: 0;
-  }
-  .cart__contents {
-    width: 400px;
-  }
-  #selectList {
-    width: 100% !important;
-  }
-}
+/*@media (max-width: 525.5px) {*/
+/*  #content.my-5 {*/
+/*    margin-top: 20px !important;*/
+/*    margin-bottom: 20px !important;*/
+/*  }*/
+/*  .col-lg-4,*/
+/*  .col-md-6 {*/
+/*    padding-left: 0;*/
+/*  }*/
+/*  .cart__contents {*/
+/*    width: 400px;*/
+/*  }*/
+/*  #selectList {*/
+/*    width: 100% !important;*/
+/*  }*/
+/*}*/
 
-.main-color {
-  background: #2c5364;
-}
+/*.main-color {*/
+/*  background: #2c5364;*/
+/*}*/
 
 .gradient-custom {
   background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8));
 }
 
-header #navbarColor01 a {
-  transition: 0.3s all ease-in-out;
-}
+/*header #navbarColor01 a {*/
+/*  transition: 0.3s all ease-in-out;*/
+/*}*/
 
-header #navbarColor01 a:hover {
-  transform: scale(1.15);
-}
+/*header #navbarColor01 a:hover {*/
+/*  transform: scale(1.15);*/
+/*}*/
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*html, body { height: 100%; }*/
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
